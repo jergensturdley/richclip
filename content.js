@@ -16,21 +16,72 @@
 
   let contentSettings = {
     selectionToolbar: 'full',
-    defaultFormat:    'markdown'
+    defaultFormat:    'markdown',
+    theme:            'auto'
   };
 
-  chrome.storage.local.get(['rcSettings'], data => {
-    const s = data.rcSettings || {};
+  function fontUrl(file) {
+    return chrome.runtime.getURL(`fonts/${file}`);
+  }
+
+  function injectFonts() {
+    if (document.getElementById('rc-fonts')) return;
+    const style = document.createElement('style');
+    style.id = 'rc-fonts';
+    style.textContent = `
+      @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400; font-display: swap;
+        src: url('${fontUrl('DMSans-Regular.woff2')}') format('woff2'); }
+      @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 500; font-display: swap;
+        src: url('${fontUrl('DMSans-Medium.woff2')}') format('woff2'); }
+      @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 600; font-display: swap;
+        src: url('${fontUrl('DMSans-SemiBold.woff2')}') format('woff2'); }
+      @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 700; font-display: swap;
+        src: url('${fontUrl('DMSans-Bold.woff2')}') format('woff2'); }
+      @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap;
+        src: url('${fontUrl('JetBrainsMono-Regular.woff2')}') format('woff2'); }
+      @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 500; font-display: swap;
+        src: url('${fontUrl('JetBrainsMono-Medium.woff2')}') format('woff2'); }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function themePanelClass() {
+    const t = contentSettings.theme || 'auto';
+    if (t === 'dark')  return 'rc-t-dark';
+    if (t === 'light') return 'rc-t-light';
+    return '';
+  }
+
+  function applyThemeToPanel(el) {
+    if (!el) return;
+    el.classList.remove('rc-t-dark', 'rc-t-light');
+    const cls = themePanelClass();
+    if (cls) el.classList.add(cls);
+  }
+
+  function applyThemeToAllPanels() {
+    applyThemeToPanel(toolbar);
+    applyThemeToPanel(grabberPanel);
+    applyThemeToPanel(scrapeDialog);
+  }
+
+  function syncContentSettings(s) {
     contentSettings.selectionToolbar = s.selectionToolbar || 'full';
     contentSettings.defaultFormat    = s.defaultFormat    || 'markdown';
+    contentSettings.theme            = s.theme || (s.darkMode ? 'dark' : 'auto');
+    applyThemeToAllPanels();
+    if (contentSettings.selectionToolbar === 'off') hideToolbar();
+  }
+
+  injectFonts();
+
+  chrome.storage.local.get(['rcSettings'], data => {
+    syncContentSettings(data.rcSettings || {});
   });
 
   chrome.storage.onChanged.addListener((changes, area) => {
     if (area !== 'local' || !changes.rcSettings) return;
-    const s = changes.rcSettings.newValue || {};
-    contentSettings.selectionToolbar = s.selectionToolbar || 'full';
-    contentSettings.defaultFormat    = s.defaultFormat    || 'markdown';
-    if (contentSettings.selectionToolbar === 'off') hideToolbar();
+    syncContentSettings(changes.rcSettings.newValue || {});
   });
 
   /* ================================================================
@@ -128,6 +179,7 @@
     `;
 
     document.body.appendChild(toolbar);
+    applyThemeToPanel(toolbar);
 
     if (!listenersReady) {
       attachToolbarListeners();
@@ -361,13 +413,14 @@
           <option value="bbcode">BBCode</option>
           <option value="plain">Plain</option>
         </select>
-        <button id="rc-grab-copy">Copy Selected</button>
-        <button id="rc-grab-stage">Stage Selected</button>
+        <button id="rc-grab-copy" class="rc-btn-primary">Copy Selected</button>
+        <button id="rc-grab-stage" class="rc-btn-secondary">Stage Selected</button>
       </div>
       <div id="rc-grab-list">${itemsHtml || '<p class="rc-empty">No links found on this page.</p>'}</div>
     `;
 
     document.body.appendChild(grabberPanel);
+    applyThemeToPanel(grabberPanel);
 
     // ── Event wiring ──
     const filterInput = grabberPanel.querySelector('#rc-grab-filter');
@@ -515,6 +568,7 @@
     `;
 
     document.body.appendChild(scrapeDialog);
+    applyThemeToPanel(scrapeDialog);
 
     // ── Event wiring ──
     scrapeDialog.querySelector('#rc-scrape-close').onclick = () => {

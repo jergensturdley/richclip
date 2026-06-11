@@ -39,11 +39,11 @@
   };
 
   const QUICK_ACTIONS = [
-    { id: 'copy-staged',  label: 'Copy Staged',  hotkey: 'V', handler: pasteAll },
-    { id: 'clear-stage',  label: 'Clear Stage',  hotkey: 'X', handler: clearStage },
-    { id: 'grab-links',   label: 'Grab Links',   hotkey: 'G', handler: grabLinks },
-    { id: 'copy-history', label: 'Copy History', hotkey: 'A', handler: copyAllHistory },
-    { id: 'open-options', label: 'Settings',     hotkey: 'O', handler: openOptions }
+    { id: 'copy-staged',  label: 'Staged',   title: 'Copy staged items',  hotkey: 'V', handler: pasteAll },
+    { id: 'clear-stage',  label: 'Clear',    title: 'Clear staged items', hotkey: 'X', handler: clearStage },
+    { id: 'grab-links',   label: 'Grab',     title: 'Grab page links',    hotkey: 'G', handler: grabLinks },
+    { id: 'copy-history', label: 'History',  title: 'Copy clipboard history', hotkey: 'A', handler: copyAllHistory },
+    { id: 'open-options', label: 'Settings', title: 'Open settings',      hotkey: 'O', handler: openOptions }
   ];
 
   /* ================================================================
@@ -232,6 +232,7 @@
     QUICK_ACTIONS.forEach(a => {
       const btn = document.createElement('button');
       btn.className = 'rc-action-btn';
+      btn.title = a.title || a.label;
       btn.innerHTML = `${a.label} <kbd>${a.hotkey}</kbd>`;
       btn.addEventListener('click', a.handler);
       qaContainer.appendChild(btn);
@@ -240,9 +241,18 @@
 
   /* ── Copy / Stage helpers ──────────────────────────────────── */
 
+  function flashFormatCard(fmt) {
+    const card = document.querySelector(`.rc-format-card[data-format="${fmt}"]`);
+    if (!card) return;
+    card.classList.add('rc-copied');
+    clearTimeout(card._flashTimer);
+    card._flashTimer = setTimeout(() => card.classList.remove('rc-copied'), 650);
+  }
+
   function doCopy(text, fmt) {
     navigator.clipboard.writeText(text).then(() => {
       addHistoryItem(text, fmt);
+      flashFormatCard(fmt);
       toast(`Copied as ${FORMAT_META[fmt]?.label || fmt}`);
       setStatus('Copied!');
       if (state.settings.autoClose) {
@@ -315,7 +325,11 @@
     });
 
     if (!filtered.length) {
-      list.innerHTML = '<div class="rc-empty">No items match your filters.</div>';
+      list.innerHTML = `
+        <div class="rc-empty">
+          <span class="rc-empty-title">No matching clips</span>
+          <span class="rc-empty-hint">Try a different filter, or copy a format from Quick Copy.</span>
+        </div>`;
       return;
     }
 
@@ -364,7 +378,11 @@
     $('staged-count-detail').textContent  = state.staged.length;
 
     if (!state.staged.length) {
-      list.innerHTML = '<div class="rc-empty">No staged items. Click + on any format card or history item.</div>';
+      list.innerHTML = `
+        <div class="rc-empty">
+          <span class="rc-empty-title">Nothing staged yet</span>
+          <span class="rc-empty-hint">Hit + on a format card or history item to build a batch.</span>
+        </div>`;
       return;
     }
 
@@ -591,7 +609,11 @@
     const list = $('template-list');
 
     if (!state.templates.length) {
-      list.innerHTML = '<div class="rc-empty">No custom templates yet.</div>';
+      list.innerHTML = `
+        <div class="rc-empty">
+          <span class="rc-empty-title">No templates yet</span>
+          <span class="rc-empty-hint">Add one above using variables like {url} and {title}.</span>
+        </div>`;
       return;
     }
 
@@ -671,56 +693,7 @@
     // 'auto' — no class; CSS @media (prefers-color-scheme: dark) handles it
   }
 
-  function loadSettingsUI() {
-    const theme = state.settings.theme || 'auto';
-    $('opt-dark').value = theme;
-    applyTheme(theme);
 
-    $('opt-auto-stage').checked   = state.settings.autoStage !== false;
-    $('opt-capture-copy').checked = state.settings.captureCopy !== false;
-    $('opt-show-preview').checked = state.settings.showPreview !== false;
-    $('opt-auto-close').checked   = state.settings.autoClose === true;
-
-    $('opt-selection-toolbar').value = state.settings.selectionToolbar || 'full';
-    $('opt-default-format').value    = state.settings.defaultFormat    || 'markdown';
-  }
-
-  function bindSettings() {
-    // Theme select (three-way)
-    $('opt-dark').addEventListener('change', () => {
-      state.settings.theme = $('opt-dark').value;
-      // Migrate legacy darkMode boolean
-      state.settings.darkMode = (state.settings.theme === 'dark');
-      saveSettings();
-      applyTheme(state.settings.theme);
-    });
-
-    // Checkbox toggles
-    const toggles = [
-      { id: 'opt-auto-stage',   key: 'autoStage' },
-      { id: 'opt-capture-copy', key: 'captureCopy' },
-      { id: 'opt-show-preview', key: 'showPreview' },
-      { id: 'opt-auto-close',   key: 'autoClose' }
-    ];
-
-    toggles.forEach(({ id, key }) => {
-      $(id).addEventListener('change', () => {
-        state.settings[key] = $(id).checked;
-        saveSettings();
-      });
-    });
-
-    // Select-based settings
-    $('opt-selection-toolbar').addEventListener('change', () => {
-      state.settings.selectionToolbar = $('opt-selection-toolbar').value;
-      saveSettings();
-    });
-
-    $('opt-default-format').addEventListener('change', () => {
-      state.settings.defaultFormat = $('opt-default-format').value;
-      saveSettings();
-    });
-  }
 
   /* ================================================================
      KEYBOARD SHORTCUTS
@@ -894,10 +867,10 @@
       t.addEventListener('click', () => switchTab(t.dataset.tab)));
 
     // Render
+    applyTheme(state.settings.theme || (state.settings.darkMode ? 'dark' : 'auto'));
     renderQuickCopy();
     renderStaged();
-    loadSettingsUI();
-    bindSettings();
+    $('rc-popup').classList.add('rc-loaded');
 
     // Clipboard controls
     $('clip-search').addEventListener('input', e => {
@@ -920,6 +893,7 @@
     $('btn-copy-stage').addEventListener('click', pasteAll);
     $('btn-paste-all').addEventListener('click', pasteAll);
     $('btn-options').addEventListener('click', openOptions);
+    $('btn-open-settings').addEventListener('click', openOptions);
 
     // Batch
     $('btn-grab-links').addEventListener('click', grabLinks);

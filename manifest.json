@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Rich Clip — Clipboard Manager & Link Toolkit",
+  "name": "Rich Clip: Clipboard Manager & Link Toolkit",
   "description": "Full clipboard manager with multi-item staging, rich formatting (Markdown/HTML/BBCode/RTF/citations), custom templates, batch link grabber, page scraper, and keyboard shortcuts for everything.",
   "version": "2.0.0",
   "icons": {
@@ -42,7 +42,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["content.css"],
+      "resources": ["content.css", "fonts/*.woff2"],
       "matches": ["<all_urls>"]
     }
   ],

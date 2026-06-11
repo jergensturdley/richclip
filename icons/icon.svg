@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#27272a"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <rect x="34" y="38" width="60" height="68" rx="10" fill="none" stroke="#fafafa" stroke-width="5"/>
+  <rect x="48" y="28" width="32" height="16" rx="6" fill="url(#amber)"/>
+  <circle cx="64" cy="36" r="3" fill="#18181b"/>
+  <line x1="46" y1="58" x2="82" y2="58" stroke="#fafafa" stroke-width="4" stroke-linecap="round" opacity="0.92"/>
+  <line x1="46" y1="70" x2="82" y2="70" stroke="#fafafa" stroke-width="4" stroke-linecap="round" opacity="0.88"/>
+  <line x1="46" y1="82" x2="68" y2="82" stroke="#fafafa" stroke-width="4" stroke-linecap="round" opacity="0.72"/>
+  <path d="M98 22 L100 30 L108 32 L100 34 L98 42 L96 34 L88 32 L96 30 Z" fill="url(#amber)" opacity="0.95"/>
+</svg>

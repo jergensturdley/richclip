@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Rich Clip</title>
+  <link rel="stylesheet" href="fonts/fonts.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body id="rc-popup">
@@ -14,8 +15,8 @@
       <h1>Rich Clip</h1>
     </div>
     <div id="rc-header-actions">
-      <button id="btn-paste-all" class="rc-btn-accent" title="Paste staged items together (Ctrl+Shift+V)">
-        Paste All <span id="staged-count" class="rc-badge">0</span>
+      <button id="btn-paste-all" class="rc-btn-accent" title="Paste all staged items (Ctrl+Shift+V)">
+        Paste <span id="staged-count" class="rc-badge">0</span>
       </button>
       <button id="btn-options" class="rc-btn-ghost" title="Open Settings" aria-label="Open Settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -28,17 +29,17 @@
 
   <!-- ── Tab Bar ───────────────────────────────────────────── -->
   <nav id="rc-tabs">
-    <button class="rc-tab active" data-tab="quick">
-      Quick Copy <kbd>1</kbd>
+    <button class="rc-tab active" data-tab="quick" title="Quick Copy">
+      Quick <kbd>1</kbd>
     </button>
-    <button class="rc-tab" data-tab="clipboard">
-      Clipboard <kbd>2</kbd>
+    <button class="rc-tab" data-tab="clipboard" title="Clipboard history">
+      Clips <kbd>2</kbd>
     </button>
-    <button class="rc-tab" data-tab="batch">
+    <button class="rc-tab" data-tab="batch" title="Batch tools">
       Batch <kbd>3</kbd>
     </button>
-    <button class="rc-tab" data-tab="templates">
-      Templates <kbd>4</kbd>
+    <button class="rc-tab" data-tab="templates" title="Custom templates">
+      Tmpl <kbd>4</kbd>
     </button>
   </nav>
 
@@ -46,12 +47,24 @@
        TAB 1 — QUICK COPY
        ═══════════════════════════════════════════════════════ -->
   <section id="tab-quick" class="rc-tab-content active">
-    <div id="page-info">
+    <div id="page-info-skeleton" class="rc-skeleton-page" aria-hidden="true">
+      <div class="rc-skeleton-line rc-skeleton-title"></div>
+      <div class="rc-skeleton-line rc-skeleton-url"></div>
+    </div>
+    <div id="page-info" class="rc-hidden-until-loaded">
       <span id="page-title"></span>
       <span id="page-url"></span>
     </div>
 
-    <div id="format-cards" class="rc-grid"></div>
+    <div id="format-cards-skeleton" class="rc-grid rc-skeleton-grid" aria-hidden="true">
+      <div class="rc-skeleton-card"></div>
+      <div class="rc-skeleton-card"></div>
+      <div class="rc-skeleton-card"></div>
+      <div class="rc-skeleton-card"></div>
+      <div class="rc-skeleton-card"></div>
+      <div class="rc-skeleton-card"></div>
+    </div>
+    <div id="format-cards" class="rc-grid rc-hidden-until-loaded"></div>
 
     <h3 class="rc-section-title">Quick Actions <kbd>Q</kbd></h3>
     <div id="quick-actions"></div>
@@ -68,8 +81,8 @@
         <option value="link">Links</option>
         <option value="text">Text</option>
       </select>
-      <select id="clip-format-filter">
-        <option value="all">All Formats</option>
+      <select id="clip-format-filter" title="Filter by format">
+        <option value="all">Formats</option>
         <option value="markdown">Markdown</option>
         <option value="html">HTML</option>
         <option value="bbcode">BBCode</option>
@@ -95,7 +108,7 @@
           <option value="\n\n">Double Newline</option>
           <option value="|">Pipe</option>
         </select>
-        <button id="btn-copy-stage" class="rc-btn-accent">Copy All Staged</button>
+        <button id="btn-copy-stage" class="rc-btn-accent" title="Copy all staged items">Copy Staged</button>
       </div>
     </div>
 
@@ -123,7 +136,7 @@
         <option value="bbcode">BBCode</option>
         <option value="plain">Plain</option>
       </select>
-      <button id="btn-convert-links" class="rc-btn-primary">Convert &amp; Copy</button>
+      <button id="btn-convert-links" class="rc-btn-primary" title="Convert and copy all page links">Convert</button>
     </div>
 
     <div class="rc-tool-group">
@@ -134,7 +147,7 @@
         <option value="html">HTML</option>
         <option value="plain">Plain</option>
       </select>
-      <button id="btn-scrape-page" class="rc-btn-primary">Open Scraper</button>
+      <button id="btn-scrape-page" class="rc-btn-primary" title="Open page scraper">Scrape</button>
     </div>
   </section>
 
@@ -152,59 +165,19 @@
       <form id="template-form">
         <input type="text" id="tpl-name" placeholder="Template name" required>
         <input type="text" id="tpl-body" placeholder="e.g. [{title}]({url}) - {date}" required>
-        <button type="submit" class="rc-btn-primary">Save Template</button>
+        <button type="submit" class="rc-btn-primary" title="Save template">Save</button>
       </form>
     </div>
 
     <h3 class="rc-section-title">Saved Templates</h3>
     <div id="template-list" class="rc-item-list"></div>
 
-    <div class="rc-tool-group" id="settings-section">
-      <h3>Settings</h3>
-
-      <p class="rc-settings-group-label">Appearance</p>
-      <label class="rc-toggle">
-        <span>Theme</span>
-        <select id="opt-dark">
-          <option value="auto">Auto (follow OS)</option>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-      </label>
-
-      <p class="rc-settings-group-label">Selection Toolbar</p>
-      <label class="rc-toggle">
-        <span>Toolbar style</span>
-        <select id="opt-selection-toolbar">
-          <option value="full">Full (URL, format, preview)</option>
-          <option value="compact">Compact (quick-copy pill)</option>
-          <option value="off">Off (disabled)</option>
-        </select>
-      </label>
-      <label class="rc-toggle">
-        <span>Default format</span>
-        <select id="opt-default-format">
-          <option value="markdown">Markdown</option>
-          <option value="html">HTML</option>
-          <option value="bbcode">BBCode</option>
-          <option value="richtext">Rich Text</option>
-          <option value="plain">Plain text</option>
-        </select>
-      </label>
-
-      <p class="rc-settings-group-label">Behaviour</p>
-      <label class="rc-toggle">
-        <input type="checkbox" id="opt-auto-stage" checked> Auto-stage on copy from toolbar
-      </label>
-      <label class="rc-toggle">
-        <input type="checkbox" id="opt-capture-copy" checked> Capture all page copy events
-      </label>
-      <label class="rc-toggle">
-        <input type="checkbox" id="opt-show-preview" checked> Show format preview in toolbar
-      </label>
-      <label class="rc-toggle">
-        <input type="checkbox" id="opt-auto-close"> Auto-close popup after copying
-      </label>
+    <div class="rc-settings-link-card">
+      <div>
+        <h3>Extension Settings</h3>
+        <p class="rc-desc">Theme, toolbar style, clipboard capture, and other behaviour options are in the full settings page.</p>
+      </div>
+      <button id="btn-open-settings" type="button" class="rc-btn-primary" title="Open extension settings">Settings</button>
     </div>
   </section>
 

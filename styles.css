@@ -3,8 +3,6 @@
    Popup, options page, and shared extension chrome.
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,500&family=JetBrains+Mono:wght@400;500&display=swap');
-
 /* ── Tokens ─────────────────────────────────────────────────── */
 :root {
   --bg:              #fafafa;
@@ -114,6 +112,17 @@ button, input, select, textarea {
   color: inherit;
 }
 
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -132,6 +141,7 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  overflow-x: hidden;
   background: var(--bg);
 }
 
@@ -153,6 +163,8 @@ button, input, select, textarea {
   align-items: center;
   gap: 10px;
   min-width: 0;
+  flex: 1;
+  overflow: hidden;
 }
 
 .rc-brand img {
@@ -168,6 +180,9 @@ button, input, select, textarea {
   letter-spacing: -0.02em;
   color: var(--text);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 #rc-header-actions {
@@ -184,13 +199,19 @@ button, input, select, textarea {
   background: var(--accent);
   color: #fff;
   border: none;
-  padding: 7px 12px;
+  padding: 7px 10px;
   border-radius: var(--radius-pill);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
   box-shadow: var(--shadow-xs);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
 }
 .rc-btn-accent:hover {
   background: var(--accent-hover);
@@ -249,11 +270,12 @@ button, input, select, textarea {
 
 .rc-tab {
   flex: 1;
-  padding: 7px 6px;
+  min-width: 0;
+  padding: 7px 4px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
@@ -261,8 +283,10 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .rc-tab:hover {
   color: var(--text);
@@ -285,7 +309,9 @@ button, input, select, textarea {
   display: none;
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 14px 16px 16px;
+  min-width: 0;
 }
 .rc-tab-content.active { display: block; }
 
@@ -370,20 +396,24 @@ button, input, select, textarea {
 
 .rc-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
   margin-bottom: 16px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .rc-format-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 10px 11px;
+  padding: 9px;
   cursor: pointer;
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
   border-left: 3px solid var(--fc, var(--accent));
   background: var(--bg-elevated);
-  position: relative;
+  min-width: 0;
+  overflow: hidden;
 }
 .rc-format-card:hover {
   border-color: var(--border-strong);
@@ -392,11 +422,19 @@ button, input, select, textarea {
 }
 .rc-format-card:active { transform: scale(0.99); }
 
+.rc-format-card.rc-copied {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-ring), var(--shadow-sm);
+  transform: scale(0.99);
+}
+
 .fc-head {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto 22px;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   margin-bottom: 6px;
+  min-width: 0;
 }
 
 .fc-icon {
@@ -418,10 +456,17 @@ button, input, select, textarea {
   font-weight: 600;
   font-size: 12px;
   flex: 1;
+  min-width: 0;
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.fc-head kbd { font-size: 9px; }
+.fc-head kbd {
+  font-size: 9px;
+  flex-shrink: 0;
+}
 
 .fc-stage-btn {
   width: 22px;
@@ -430,7 +475,7 @@ button, input, select, textarea {
   border: 1px solid var(--border);
   background: var(--bg-subtle);
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -439,6 +484,7 @@ button, input, select, textarea {
   padding: 0;
   line-height: 1;
   transition: all var(--transition);
+  justify-self: end;
 }
 .fc-stage-btn:hover {
   background: var(--accent);
@@ -470,21 +516,27 @@ button, input, select, textarea {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  min-width: 0;
 }
 
 .rc-action-btn {
-  padding: 6px 11px;
+  padding: 6px 9px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
   color: var(--text-secondary);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .rc-action-btn:hover {
   background: var(--bg-subtle);
@@ -502,6 +554,7 @@ button, input, select, textarea {
   gap: 6px;
   margin-bottom: 12px;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 #clip-search {
@@ -522,13 +575,16 @@ button, input, select, textarea {
 }
 
 #clip-controls select {
-  padding: 7px 9px;
+  padding: 7px 8px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 11px;
   background: var(--bg-elevated);
   color: var(--text);
   cursor: pointer;
+  max-width: 108px;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 #staged-section {
@@ -549,6 +605,14 @@ button, input, select, textarea {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+#stage-actions .rc-btn-accent {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: center;
 }
 
 #stage-actions select {
@@ -706,6 +770,20 @@ button, input, select, textarea {
   color: var(--text);
   margin-right: 8px;
   cursor: pointer;
+  max-width: 100%;
+}
+
+#rc-popup .rc-tool-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+#rc-popup .rc-tool-group select,
+#rc-popup .rc-tool-group .rc-btn-primary {
+  margin-right: 0;
 }
 
 .rc-badge-info {
@@ -724,6 +802,11 @@ button, input, select, textarea {
   gap: 6px;
   margin-bottom: 10px;
   flex-wrap: wrap;
+  min-width: 0;
+}
+
+#template-form .rc-btn-primary {
+  flex-shrink: 0;
 }
 
 #template-form input {
@@ -795,7 +878,7 @@ button, input, select, textarea {
    ================================================================ */
 
 .rc-btn-primary {
-  padding: 8px 16px;
+  padding: 8px 14px;
   background: var(--accent);
   color: #fff;
   border: none;
@@ -805,6 +888,11 @@ button, input, select, textarea {
   cursor: pointer;
   transition: background var(--transition), transform var(--transition);
   box-shadow: var(--shadow-xs);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 .rc-btn-primary:hover { background: var(--accent-hover); }
 .rc-btn-primary:active { transform: scale(0.98); }
@@ -823,7 +911,7 @@ button, input, select, textarea {
 .rc-btn-danger:hover { background: var(--danger-hover); }
 
 .rc-btn-danger-sm {
-  padding: 6px 11px;
+  padding: 6px 10px;
   background: transparent;
   color: var(--danger);
   border: 1px solid var(--danger);
@@ -832,6 +920,8 @@ button, input, select, textarea {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .rc-btn-danger-sm:hover {
   background: var(--danger);
@@ -877,6 +967,108 @@ code {
   font-size: 12px;
   padding: 20px 12px;
   line-height: 1.5;
+}
+
+.rc-empty-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.rc-empty-hint {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* ── Loading skeleton ───────────────────────────────────────── */
+.rc-hidden-until-loaded { display: none; }
+.rc-loaded #page-info-skeleton,
+.rc-loaded #format-cards-skeleton { display: none; }
+.rc-loaded #page-info.rc-hidden-until-loaded,
+.rc-loaded #format-cards.rc-hidden-until-loaded { display: block; }
+.rc-loaded #format-cards.rc-hidden-until-loaded { display: grid; }
+
+.rc-skeleton-page,
+.rc-skeleton-card,
+.rc-skeleton-line {
+  background: linear-gradient(
+    90deg,
+    var(--bg-muted) 0%,
+    var(--bg-subtle) 45%,
+    var(--bg-muted) 90%
+  );
+  background-size: 200% 100%;
+  animation: rc-shimmer 1.2s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes rc-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rc-skeleton-page,
+  .rc-skeleton-card,
+  .rc-skeleton-line { animation: none; }
+}
+
+.rc-skeleton-page {
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rc-skeleton-title { height: 14px; width: 72%; }
+.rc-skeleton-url { height: 11px; width: 92%; }
+
+.rc-skeleton-grid .rc-skeleton-card {
+  height: 62px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* ── Settings link card (popup) ─────────────────────────────── */
+.rc-settings-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-xs);
+  min-width: 0;
+}
+
+.rc-settings-link-card > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.rc-settings-link-card .rc-btn-primary {
+  flex-shrink: 0;
+}
+
+.rc-settings-link-card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.rc-settings-link-card .rc-desc {
+  margin-bottom: 0;
+  font-size: 11.5px;
 }
 
 /* ================================================================
@@ -1132,15 +1324,30 @@ code {
   font-size: 13px;
   padding: 4px 0;
 }
-.rc-setting-row input[type="number"] {
-  width: 88px;
+.rc-setting-row input[type="number"],
+.rc-setting-row select {
+  width: auto;
+  min-width: 160px;
   padding: 7px 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--bg-elevated);
   color: var(--text);
+  cursor: pointer;
+}
+
+.rc-setting-row input[type="number"] {
+  width: 88px;
+  min-width: 88px;
   font-family: var(--mono);
+}
+
+.rc-setting-row select:focus,
+.rc-setting-row input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
 .rc-btn-row {

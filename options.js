@@ -170,6 +170,54 @@ function renderTemplateList() {
 }
 
 /* ================================================================
+   APPEARANCE & BEHAVIOUR
+   ================================================================ */
+
+function applyThemeFromSettings(settings) {
+  const theme = settings.theme || (settings.darkMode ? 'dark' : 'auto');
+  const root  = document.documentElement;
+  root.classList.remove('rc-dark', 'rc-light');
+  if (theme === 'dark')  root.classList.add('rc-dark');
+  else if (theme === 'light') root.classList.add('rc-light');
+}
+
+function loadAppearanceSettings() {
+  chrome.storage.local.get([SETTINGS_KEY], data => {
+    const s = data[SETTINGS_KEY] || {};
+    document.getElementById('opt-theme').value                = s.theme || (s.darkMode ? 'dark' : 'auto');
+    document.getElementById('opt-selection-toolbar').value    = s.selectionToolbar || 'full';
+    document.getElementById('opt-default-format').value       = s.defaultFormat || 'markdown';
+    document.getElementById('opt-auto-stage').checked         = s.autoStage !== false;
+    document.getElementById('opt-capture-copy').checked       = s.captureCopy !== false;
+    document.getElementById('opt-show-preview').checked       = s.showPreview !== false;
+    document.getElementById('opt-auto-close').checked         = s.autoClose === true;
+    applyThemeFromSettings(s);
+  });
+}
+
+function saveAppearanceSettings() {
+  chrome.storage.local.get([SETTINGS_KEY], data => {
+    const s = data[SETTINGS_KEY] || {};
+    s.theme              = document.getElementById('opt-theme').value;
+    s.darkMode           = (s.theme === 'dark');
+    s.selectionToolbar   = document.getElementById('opt-selection-toolbar').value;
+    s.defaultFormat      = document.getElementById('opt-default-format').value;
+    s.autoStage          = document.getElementById('opt-auto-stage').checked;
+    s.captureCopy        = document.getElementById('opt-capture-copy').checked;
+    s.showPreview        = document.getElementById('opt-show-preview').checked;
+    s.autoClose          = document.getElementById('opt-auto-close').checked;
+    chrome.storage.local.set({ [SETTINGS_KEY]: s }, () => applyThemeFromSettings(s));
+  });
+}
+
+[
+  'opt-theme', 'opt-selection-toolbar', 'opt-default-format',
+  'opt-auto-stage', 'opt-capture-copy', 'opt-show-preview', 'opt-auto-close'
+].forEach(id => {
+  document.getElementById(id).addEventListener('change', saveAppearanceSettings);
+});
+
+/* ================================================================
    CLIPBOARD SETTINGS
    ================================================================ */
 
@@ -267,24 +315,8 @@ function renderAll() {
   renderLinkList();
   renderSearchList();
   renderTemplateList();
+  loadAppearanceSettings();
   loadClipSettings();
-  applyThemeFromStorage();
-}
-
-function applyThemeFromStorage() {
-  chrome.storage.local.get([SETTINGS_KEY], data => {
-    const settings = data[SETTINGS_KEY] || {};
-    const theme = settings.theme || (settings.darkMode ? 'dark' : 'auto');
-    const root = document.documentElement;
-    root.classList.remove('rc-dark', 'rc-light');
-
-    if (theme === 'dark') {
-      root.classList.add('rc-dark');
-    } else if (theme === 'light') {
-      root.classList.add('rc-light');
-    }
-    // 'auto' — let @media (prefers-color-scheme: dark) handle it
-  });
 }
 
 renderAll();
