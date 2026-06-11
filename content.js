@@ -486,7 +486,7 @@
             ${tables.map((t, i) => `
               <div class="rc-scrape-item">
                 <input type="checkbox" class="rc-t-chk" data-i="${i}">
-                <span>Table ${i + 1} — ${t.rowCount} rows &times; ${(t.header).length} cols</span>
+                <span>Table ${i + 1}: ${t.rowCount} rows &times; ${(t.header).length} cols</span>
               </div>
             `).join('') || '<p class="rc-empty">No tables found.</p>'}
           </div>
@@ -497,7 +497,7 @@
             ${lists.map((l, i) => `
               <div class="rc-scrape-item">
                 <input type="checkbox" class="rc-l-chk" data-i="${i}">
-                <span>${l.ordered ? 'OL' : 'UL'} — ${l.items.length} items</span>
+                <span>${l.ordered ? 'OL' : 'UL'}: ${l.items.length} items</span>
               </div>
             `).join('') || '<p class="rc-empty">No lists found.</p>'}
           </div>

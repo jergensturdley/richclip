@@ -29,13 +29,13 @@
   };
 
   const FORMAT_META = {
-    markdown: { label: 'Markdown',  color: '#374151', icon: 'M↓' },
-    html:     { label: 'HTML',      color: '#6b7280', icon: '</>' },
-    bbcode:   { label: 'BBCode',    color: '#6b7280', icon: 'BB' },
-    richtext: { label: 'Rich Text', color: '#374151', icon: 'RT' },
-    plain:    { label: 'Plain',     color: '#6b7280', icon: 'Tx' },
-    citation: { label: 'Citation',  color: '#6b7280', icon: 'Ci' },
-    custom:   { label: 'Custom',    color: '#6b7280', icon: '★' }
+    markdown: { label: 'Markdown',  color: '#0d9488', icon: 'MD' },
+    html:     { label: 'HTML',      color: '#e11d48', icon: '</>' },
+    bbcode:   { label: 'BBCode',    color: '#7c3aed', icon: 'BB' },
+    richtext: { label: 'Rich Text', color: '#d97706', icon: 'RT' },
+    plain:    { label: 'Plain',     color: '#64748b', icon: 'Tx' },
+    citation: { label: 'Citation',  color: '#2563eb', icon: 'Ci' },
+    custom:   { label: 'Custom',    color: '#db2777', icon: '★' }
   };
 
   const QUICK_ACTIONS = [
@@ -523,12 +523,12 @@
 
       const count = result?.result || 0;
       $('batch-link-summary').innerHTML =
-        `<span class="rc-badge-info">${count} links found — grabber panel opened on page</span>`;
+        `<span class="rc-badge-info">${count} links found. Grabber panel opened on page.</span>`;
 
       toast(`Grabber opened with ${count} links`);
     } catch (e) {
       console.error(e);
-      toast('Could not grab links — reload the page', true);
+      toast('Could not grab links. Reload the page.', true);
     }
   }
 
@@ -579,7 +579,7 @@
       toast('Scraper opened on page');
     } catch (e) {
       console.error(e);
-      toast('Could not open scraper — reload the page', true);
+      toast('Could not open scraper. Reload the page.', true);
     }
   }
 

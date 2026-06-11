@@ -9,12 +9,20 @@
 
   <!-- ── Header ────────────────────────────────────────────── -->
   <header id="rc-header">
-    <h1>Rich Clip</h1>
+    <div class="rc-brand">
+      <img src="icons/icon48.png" width="22" height="22" alt="">
+      <h1>Rich Clip</h1>
+    </div>
     <div id="rc-header-actions">
       <button id="btn-paste-all" class="rc-btn-accent" title="Paste staged items together (Ctrl+Shift+V)">
         Paste All <span id="staged-count" class="rc-badge">0</span>
       </button>
-      <button id="btn-options" class="rc-btn-ghost" title="Open Settings">&#9881;</button>
+      <button id="btn-options" class="rc-btn-ghost" title="Open Settings" aria-label="Open Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
     </div>
   </header>
 
@@ -143,7 +151,7 @@
       </p>
       <form id="template-form">
         <input type="text" id="tpl-name" placeholder="Template name" required>
-        <input type="text" id="tpl-body" placeholder="e.g. [{title}]({url}) — {date}" required>
+        <input type="text" id="tpl-body" placeholder="e.g. [{title}]({url}) - {date}" required>
         <button type="submit" class="rc-btn-primary">Save Template</button>
       </form>
     </div>

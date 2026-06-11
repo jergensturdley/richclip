@@ -1,23 +1,24 @@
 /* ================================================================
    Rich Clip — Content Script Styles (ISOLATED)
-   Every rule is scoped to extension elements only.
-   No globals, no :root, no element selectors, no resets.
+   Scoped to extension-injected elements only.
    ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ── Floating Toolbar ───────────────────────────────────────── */
 #rc-toolbar {
   all: initial;
   position: absolute;
   z-index: 2147483647;
-  background: #fafafa;
-  border: 1px solid #e6e6e9;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
   border-radius: 10px;
   padding: 8px 10px;
-  box-shadow: 0 6px 22px rgba(9,10,11,0.06);
+  box-shadow: 0 10px 28px rgba(24, 24, 27, 0.14);
   display: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 13px;
-  color: #0f172a;
+  color: #18181b;
   max-width: 520px;
   box-sizing: border-box;
   line-height: 1.5;
@@ -37,105 +38,97 @@
   align-items: center;
   justify-content: center;
   padding: 6px 10px;
-  border: 1px solid #e6e6e9;
-  border-radius: 8px;
-  background: #fff;
-  color: #0f172a;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
+  background: #f4f4f5;
+  color: #18181b;
   cursor: pointer;
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: all 140ms ease;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background 160ms cubic-bezier(0.16, 1, 0.3, 1), border-color 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
   line-height: 1.3;
 }
 #rc-toolbar button:hover {
-  background: #f3f4f6;
-  color: #0f172a;
-  border-color: #dcdcdc;
+  background: #ececee;
+  border-color: #d4d4d8;
   transform: translateY(-1px);
 }
+#rc-toolbar button:active { transform: scale(0.98); }
 
 #rc-toolbar input[type="text"] {
   all: initial;
   box-sizing: border-box;
   display: inline-block;
   padding: 6px 8px;
-  border: 1px solid #e6e6e9;
+  border: 1px solid #e4e4e7;
   border-radius: 6px;
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #0f172a;
-  background: #fff;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #18181b;
+  background: #ffffff;
   line-height: 1.5;
 }
 #rc-toolbar input[type="text"]:focus {
   outline: none;
-  border-color: #cfcfcf;
-  box-shadow: 0 2px 8px rgba(9,10,11,0.04);
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.28);
 }
 
 #rc-toolbar select {
   all: initial;
   box-sizing: border-box;
   display: inline-block;
-  padding: 3px 6px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1e293b;
-  background: #fff;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #18181b;
+  background: #ffffff;
 }
 
 #rc-toolbar .rc-sep {
   display: inline-block;
   width: 1px;
   height: 20px;
-  background: #ececee;
-  margin: 0 6px;
+  background: #e4e4e7;
+  margin: 0 4px;
 }
 
 #rc-tb-preview {
   margin-top: 6px;
   padding: 6px 8px;
-  background: #fafafa;
+  background: #f4f4f5;
   border-radius: 6px;
   font-size: 11px;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  color: #6b7280;
+  font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
+  color: #71717a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid #f3f3f4;
+  border: 1px solid #e4e4e7;
 }
 
-/* ── Text-case transform buttons ───────────────────────────── */
 .rc-tb-case {
   font-size: 10px !important;
-  padding: 2px 5px !important;
+  padding: 4px 6px !important;
   font-weight: 700 !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
-/* ── Word count indicator ───────────────────────────────────── */
 #rc-tb-wc {
   display: none;
   font-size: 10px;
-  color: #6b7280;
-  padding: 3px 6px;
-  background: #f3f4f6;
-  border-radius: 6px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #71717a;
+  padding: 4px 7px;
+  background: #f4f4f5;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
   flex-shrink: 0;
 }
 
-/* ── Compact toolbar ─────────────────────────────────────────
-   Hide everything except: format select, Copy, +Stage, Close
-   and show the word-count badge.
-   ─────────────────────────────────────────────────────────── */
-#rc-toolbar.rc-tb-compact {
-  max-width: 260px !important;
-}
-#rc-toolbar.rc-tb-compact #rc-tb-wc           { display: inline-block !important; }
+#rc-toolbar.rc-tb-compact { max-width: 260px !important; }
+#rc-toolbar.rc-tb-compact #rc-tb-wc { display: inline-block !important; }
 #rc-toolbar.rc-tb-compact #rc-btn-bold,
 #rc-toolbar.rc-tb-compact #rc-btn-italic,
 #rc-toolbar.rc-tb-compact #rc-btn-code,
@@ -144,9 +137,9 @@
 #rc-toolbar.rc-tb-compact #rc-tb-url,
 #rc-toolbar.rc-tb-compact #rc-tb-text,
 #rc-toolbar.rc-tb-compact #rc-btn-save,
-#rc-toolbar.rc-tb-compact #rc-tb-preview       { display: none !important; }
+#rc-toolbar.rc-tb-compact #rc-tb-preview { display: none !important; }
 
-/* ── Batch Link Grabber Panel ───────────────────────────────── */
+/* ── Link Grabber ───────────────────────────────────────────── */
 #rc-grabber {
   all: initial;
   position: fixed;
@@ -155,13 +148,13 @@
   width: 420px;
   max-height: 80vh;
   z-index: 2147483647;
-  background: #fff;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(24, 24, 27, 0.14);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 13px;
-  color: #1e293b;
+  color: #18181b;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -174,18 +167,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: linear-gradient(180deg, #fafafa, transparent);
-  color: #0f172a;
+  background: #f4f4f5;
+  border-bottom: 1px solid #e4e4e7;
+  color: #18181b;
 }
 #rc-grab-header h3 {
   font-size: 14px;
   font-weight: 600;
   margin: 0;
   font-family: inherit;
-  color: #fff;
+  color: #18181b;
+  letter-spacing: -0.01em;
 }
 #rc-grab-header small {
-  opacity: 0.8;
+  opacity: 0.7;
   font-weight: 400;
 }
 
@@ -194,7 +189,7 @@
   flex-wrap: wrap;
   gap: 6px;
   padding: 10px 12px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e4e4e7;
   align-items: center;
 }
 
@@ -203,46 +198,53 @@
   box-sizing: border-box;
   flex: 1;
   min-width: 120px;
-  padding: 5px 8px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  padding: 7px 10px;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1e293b;
-  background: #fff;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #18181b;
+  background: #ffffff;
   line-height: 1.5;
 }
-#rc-grab-filter:focus { outline: none; border-color: #cfcfcf; }
+#rc-grab-filter:focus {
+  outline: none;
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.28);
+}
 
 #rc-grab-controls button {
   all: initial;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
-#rc-grab-controls button {
-  border: 1px solid #e6e6e9;
-  border-radius: 8px;
-  background: #fff;
+  padding: 6px 11px;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
+  background: #ffffff;
   font-size: 11px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   cursor: pointer;
-  color: #0f172a;
+  color: #18181b;
   line-height: 1.4;
+  transition: background 160ms ease;
 }
-#rc-grab-controls button:hover { background: #f3f4f6; color: #0f172a; border-color: #dcdcdc; }
+#rc-grab-controls button:hover {
+  background: #f4f4f5;
+  border-color: #d4d4d8;
+}
 
 #rc-grab-controls select {
   all: initial;
   box-sizing: border-box;
   display: inline-block;
-  padding: 4px 6px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  padding: 6px 9px;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
   font-size: 11px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1e293b;
-  background: #fff;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #18181b;
+  background: #ffffff;
 }
 
 #rc-grab-list {
@@ -256,15 +258,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 14px;
-  transition: background 100ms;
+  padding: 6px 14px;
+  transition: background 120ms ease;
 }
-.rc-grab-item:hover { background: #f8fafc; }
+.rc-grab-item:hover { background: #f4f4f5; }
 
-.rc-grab-chk {
-  margin: 0;
-  cursor: pointer;
-}
+.rc-grab-chk { margin: 0; cursor: pointer; }
 
 .rc-grab-text {
   flex: 1;
@@ -277,14 +276,15 @@
 
 .rc-grab-url {
   font-size: 10px;
-  color: #94a3b8;
+  color: #a1a1aa;
+  font-family: 'JetBrains Mono', Consolas, monospace;
   max-width: 140px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* ── Page Scraper Panel ─────────────────────────────────────── */
+/* ── Page Scraper ───────────────────────────────────────────── */
 #rc-scrape {
   all: initial;
   position: fixed;
@@ -293,13 +293,13 @@
   width: 440px;
   max-height: 80vh;
   z-index: 2147483647;
-  background: #fff;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(24, 24, 27, 0.14);
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 13px;
-  color: #1e293b;
+  color: #18181b;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -312,36 +312,35 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: linear-gradient(180deg, #fafafa, transparent);
-  color: #0f172a;
+  background: #f4f4f5;
+  border-bottom: 1px solid #e4e4e7;
+  color: #18181b;
 }
 #rc-scrape-header h3 {
   font-size: 14px;
   font-weight: 600;
   margin: 0;
   font-family: inherit;
-  color: #fff;
+  color: #18181b;
+  letter-spacing: -0.01em;
 }
 
 #rc-scrape-body {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 14px;
+  padding: 12px 14px;
   max-height: 55vh;
 }
 
-.rc-scrape-section {
-  margin-bottom: 12px;
-}
+.rc-scrape-section { margin-bottom: 12px; }
 
 .rc-scrape-section h4 {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: #71717a;
   margin: 0 0 6px 0;
   font-family: inherit;
+  letter-spacing: 0.02em;
 }
 
 .rc-scrape-item {
@@ -360,15 +359,16 @@
 .rc-h-level {
   font-size: 10px;
   font-weight: 700;
-  background: #f3f4f6;
-  color: #6b7280;
-  padding: 1px 5px;
-  border-radius: 3px;
+  background: #f4f4f5;
+  color: #52525b;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', Consolas, monospace;
 }
 
 .rc-scrape-items p.rc-empty {
   text-align: center;
-  color: #94a3b8;
+  color: #a1a1aa;
   font-size: 12px;
   padding: 8px;
   margin: 0;
@@ -379,20 +379,20 @@
   gap: 8px;
   align-items: center;
   padding: 10px 14px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e4e4e7;
 }
 
 #rc-scrape-footer select {
   all: initial;
   box-sizing: border-box;
   display: inline-block;
-  padding: 5px 8px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+  padding: 7px 10px;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
   font-size: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: #1e293b;
-  background: #fff;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #18181b;
+  background: #ffffff;
 }
 
 #rc-scrape-footer button {
@@ -400,20 +400,21 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  padding: 5px 14px;
+  padding: 7px 14px;
   border: none;
-  border-radius: 4px;
-  background: #374151;
-  color: #fff;
+  border-radius: 999px;
+  background: #d97706;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.4;
+  transition: background 160ms ease;
 }
-#rc-scrape-footer button:hover { background: #111827; }
+#rc-scrape-footer button:hover { background: #b45309; }
 
-/* ── Close Button (shared across panels) ────────────────────── */
+/* ── Close Button ───────────────────────────────────────────── */
 #rc-grabber .rc-close-btn,
 #rc-scrape .rc-close-btn {
   all: initial;
@@ -423,18 +424,22 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #71717a;
   font-size: 16px;
   cursor: pointer;
   padding: 0;
   line-height: 1;
   font-family: inherit;
+  transition: background 160ms ease, color 160ms ease;
 }
 #rc-grabber .rc-close-btn:hover,
-#rc-scrape .rc-close-btn:hover { background: rgba(255,255,255,0.4); }
+#rc-scrape .rc-close-btn:hover {
+  background: #f4f4f5;
+  color: #18181b;
+}
 
 /* ── Floater Toast ──────────────────────────────────────────── */
 #rc-floater {
@@ -442,153 +447,153 @@
   position: fixed;
   bottom: 24px;
   left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 8px 20px;
-  border-radius: 20px;
+  transform: translateX(-50%) translateY(16px);
+  background: #18181b;
+  color: #fafafa;
+  padding: 9px 20px;
+  border-radius: 999px;
   font-size: 13px;
   font-weight: 500;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   opacity: 0;
-  transition: all 250ms ease;
+  transition: opacity 220ms cubic-bezier(0.16, 1, 0.3, 1), transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 2147483647;
   pointer-events: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 28px rgba(24, 24, 27, 0.2);
 }
 #rc-floater.rc-floater-show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 #rc-floater.rc-floater-error {
-  background: #ef4444;
+  background: #dc2626;
+  color: #ffffff;
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
 
 /* ================================================================
-   DARK MODE — Content Script Panels
-   Activates automatically when OS is in dark mode.
+   DARK MODE
    ================================================================ */
 @media (prefers-color-scheme: dark) {
-
-  /* ── Toolbar ─────────────────────────────────────────────── */
   #rc-toolbar {
-    background: #1e293b !important;
-    border-color: #475569 !important;
-    color: #f1f5f9 !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+    background: #18181b !important;
+    border-color: #27272a !important;
+    color: #fafafa !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45) !important;
   }
   #rc-toolbar button {
-    background: #334155 !important;
-    color: #e2e8f0 !important;
-    border-color: #475569 !important;
+    background: #27272a !important;
+    color: #e4e4e7 !important;
+    border-color: #3f3f46 !important;
   }
   #rc-toolbar button:hover {
-    background: #374151 !important;
-    color: #fff !important;
-    border-color: #374151 !important;
+    background: #3f3f46 !important;
+    color: #fafafa !important;
+    border-color: #52525b !important;
   }
-  #rc-toolbar input[type="text"] {
-    background: #0f172a !important;
-    color: #f1f5f9 !important;
-    border-color: #475569 !important;
+  #rc-toolbar input[type="text"],
+  #rc-toolbar select {
+    background: #09090b !important;
+    color: #fafafa !important;
+    border-color: #3f3f46 !important;
   }
   #rc-toolbar input[type="text"]:focus {
-    border-color: #6b7280 !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.32) !important;
   }
-  #rc-toolbar select {
-    background: #0f172a !important;
-    color: #f1f5f9 !important;
-    border-color: #475569 !important;
-  }
-  #rc-toolbar .rc-sep {
-    background: #475569 !important;
-  }
+  #rc-toolbar .rc-sep { background: #3f3f46 !important; }
   #rc-tb-preview {
-    background: #0f172a !important;
-    color: #94a3b8 !important;
-    border-color: #334155 !important;
+    background: #09090b !important;
+    color: #a1a1aa !important;
+    border-color: #27272a !important;
   }
   #rc-tb-wc {
-    background: #334155 !important;
-    color: #94a3b8 !important;
+    background: #27272a !important;
+    color: #a1a1aa !important;
   }
 
-  /* ── Link Grabber Panel ──────────────────────────────────── */
-  #rc-grabber {
-    background: #1e293b !important;
-    border-color: #334155 !important;
-    color: #f1f5f9 !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+  #rc-grabber,
+  #rc-scrape {
+    background: #18181b !important;
+    border-color: #27272a !important;
+    color: #fafafa !important;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.52) !important;
   }
-  #rc-grab-controls {
-    border-bottom-color: #334155 !important;
+  #rc-grab-header,
+  #rc-scrape-header {
+    background: #141416 !important;
+    border-bottom-color: #27272a !important;
+    color: #fafafa !important;
   }
-  #rc-grab-filter {
-    background: #0f172a !important;
-    color: #f1f5f9 !important;
-    border-color: #475569 !important;
+  #rc-grab-header h3,
+  #rc-scrape-header h3 { color: #fafafa !important; }
+
+  #rc-grab-controls,
+  #rc-scrape-footer { border-color: #27272a !important; }
+
+  #rc-grab-filter,
+  #rc-grab-controls select,
+  #rc-scrape-footer select {
+    background: #09090b !important;
+    color: #fafafa !important;
+    border-color: #3f3f46 !important;
   }
   #rc-grab-filter:focus {
-    border-color: #6b7280 !important;
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.32) !important;
   }
   #rc-grab-controls button {
-    background: #334155 !important;
-    color: #e2e8f0 !important;
-    border-color: #475569 !important;
+    background: #27272a !important;
+    color: #e4e4e7 !important;
+    border-color: #3f3f46 !important;
   }
   #rc-grab-controls button:hover {
-    background: #374151 !important;
-    border-color: #374151 !important;
-  }
-  #rc-grab-controls select {
-    background: #0f172a !important;
-    color: #f1f5f9 !important;
-    border-color: #475569 !important;
-  }
-  .rc-grab-item:hover {
-    background: #334155 !important;
-  }
-  .rc-grab-text {
-    color: #e2e8f0 !important;
-  }
-  .rc-grab-url {
-    color: #64748b !important;
+    background: #3f3f46 !important;
+    border-color: #52525b !important;
   }
 
-  /* ── Page Scraper Panel ──────────────────────────────────── */
-  #rc-scrape {
-    background: #1e293b !important;
-    border-color: #334155 !important;
-    color: #f1f5f9 !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
-  }
-  #rc-scrape-body {
-    color: #f1f5f9 !important;
-  }
-  .rc-scrape-section h4 {
-    color: #94a3b8 !important;
-  }
-  .rc-scrape-item {
-    color: #e2e8f0 !important;
-  }
+  .rc-grab-item:hover { background: #27272a !important; }
+  .rc-grab-text { color: #e4e4e7 !important; }
+  .rc-grab-url { color: #71717a !important; }
+
+  #rc-scrape-body { color: #fafafa !important; }
+  .rc-scrape-section h4 { color: #a1a1aa !important; }
+  .rc-scrape-item { color: #e4e4e7 !important; }
   .rc-h-level {
-    background: #312e81 !important;
-    color: #a5b4fc !important;
-  }
-  #rc-scrape-footer {
-    border-top-color: #334155 !important;
-  }
-  #rc-scrape-footer select {
-    background: #0f172a !important;
-    color: #f1f5f9 !important;
-    border-color: #475569 !important;
+    background: #27272a !important;
+    color: #a1a1aa !important;
   }
 
-  /* ── Floater Toast ───────────────────────────────────────── */
+  #rc-scrape-footer button {
+    background: #f59e0b !important;
+    color: #18181b !important;
+  }
+  #rc-scrape-footer button:hover { background: #fbbf24 !important; }
+
+  #rc-grabber .rc-close-btn,
+  #rc-scrape .rc-close-btn {
+    background: #27272a !important;
+    border-color: #3f3f46 !important;
+    color: #a1a1aa !important;
+  }
+  #rc-grabber .rc-close-btn:hover,
+  #rc-scrape .rc-close-btn:hover {
+    background: #3f3f46 !important;
+    color: #fafafa !important;
+  }
+
   #rc-floater {
-    background: #f1f5f9 !important;
-    color: #0f172a !important;
+    background: #fafafa !important;
+    color: #18181b !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #rc-toolbar button,
+  #rc-grab-controls button,
+  #rc-scrape-footer button,
+  #rc-floater {
+    transition: none !important;
   }
 }
