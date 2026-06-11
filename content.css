@@ -1,0 +1,594 @@
+/* ================================================================
+   Rich Clip — Content Script Styles (ISOLATED)
+   Every rule is scoped to extension elements only.
+   No globals, no :root, no element selectors, no resets.
+   ================================================================ */
+
+/* ── Floating Toolbar ───────────────────────────────────────── */
+#rc-toolbar {
+  all: initial;
+  position: absolute;
+  z-index: 2147483647;
+  background: #fafafa;
+  border: 1px solid #e6e6e9;
+  border-radius: 10px;
+  padding: 8px 10px;
+  box-shadow: 0 6px 22px rgba(9,10,11,0.06);
+  display: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #0f172a;
+  max-width: 520px;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+#rc-tb-row {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#rc-toolbar button {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 1px solid #e6e6e9;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: all 140ms ease;
+  line-height: 1.3;
+}
+#rc-toolbar button:hover {
+  background: #f3f4f6;
+  color: #0f172a;
+  border-color: #dcdcdc;
+  transform: translateY(-1px);
+}
+
+#rc-toolbar input[type="text"] {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 6px 8px;
+  border: 1px solid #e6e6e9;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #0f172a;
+  background: #fff;
+  line-height: 1.5;
+}
+#rc-toolbar input[type="text"]:focus {
+  outline: none;
+  border-color: #cfcfcf;
+  box-shadow: 0 2px 8px rgba(9,10,11,0.04);
+}
+
+#rc-toolbar select {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 3px 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background: #fff;
+}
+
+#rc-toolbar .rc-sep {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: #ececee;
+  margin: 0 6px;
+}
+
+#rc-tb-preview {
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: #fafafa;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: 1px solid #f3f3f4;
+}
+
+/* ── Text-case transform buttons ───────────────────────────── */
+.rc-tb-case {
+  font-size: 10px !important;
+  padding: 2px 5px !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* ── Word count indicator ───────────────────────────────────── */
+#rc-tb-wc {
+  display: none;
+  font-size: 10px;
+  color: #6b7280;
+  padding: 3px 6px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  flex-shrink: 0;
+}
+
+/* ── Compact toolbar ─────────────────────────────────────────
+   Hide everything except: format select, Copy, +Stage, Close
+   and show the word-count badge.
+   ─────────────────────────────────────────────────────────── */
+#rc-toolbar.rc-tb-compact {
+  max-width: 260px !important;
+}
+#rc-toolbar.rc-tb-compact #rc-tb-wc           { display: inline-block !important; }
+#rc-toolbar.rc-tb-compact #rc-btn-bold,
+#rc-toolbar.rc-tb-compact #rc-btn-italic,
+#rc-toolbar.rc-tb-compact #rc-btn-code,
+#rc-toolbar.rc-tb-compact .rc-sep,
+#rc-toolbar.rc-tb-compact .rc-tb-case,
+#rc-toolbar.rc-tb-compact #rc-tb-url,
+#rc-toolbar.rc-tb-compact #rc-tb-text,
+#rc-toolbar.rc-tb-compact #rc-btn-save,
+#rc-toolbar.rc-tb-compact #rc-tb-preview       { display: none !important; }
+
+/* ── Batch Link Grabber Panel ───────────────────────────────── */
+#rc-grabber {
+  all: initial;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 420px;
+  max-height: 80vh;
+  z-index: 2147483647;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #1e293b;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+#rc-grab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #fafafa, transparent);
+  color: #0f172a;
+}
+#rc-grab-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  font-family: inherit;
+  color: #fff;
+}
+#rc-grab-header small {
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+#rc-grab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+}
+
+#rc-grab-filter {
+  all: initial;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 120px;
+  padding: 5px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background: #fff;
+  line-height: 1.5;
+}
+#rc-grab-filter:focus { outline: none; border-color: #cfcfcf; }
+
+#rc-grab-controls button {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+#rc-grab-controls button {
+  border: 1px solid #e6e6e9;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  cursor: pointer;
+  color: #0f172a;
+  line-height: 1.4;
+}
+#rc-grab-controls button:hover { background: #f3f4f6; color: #0f172a; border-color: #dcdcdc; }
+
+#rc-grab-controls select {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 4px 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background: #fff;
+}
+
+#rc-grab-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+  max-height: 50vh;
+}
+
+.rc-grab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  transition: background 100ms;
+}
+.rc-grab-item:hover { background: #f8fafc; }
+
+.rc-grab-chk {
+  margin: 0;
+  cursor: pointer;
+}
+
+.rc-grab-text {
+  flex: 1;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.rc-grab-url {
+  font-size: 10px;
+  color: #94a3b8;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Page Scraper Panel ─────────────────────────────────────── */
+#rc-scrape {
+  all: initial;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 440px;
+  max-height: 80vh;
+  z-index: 2147483647;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  color: #1e293b;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+#rc-scrape-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #fafafa, transparent);
+  color: #0f172a;
+}
+#rc-scrape-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  font-family: inherit;
+  color: #fff;
+}
+
+#rc-scrape-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px;
+  max-height: 55vh;
+}
+
+.rc-scrape-section {
+  margin-bottom: 12px;
+}
+
+.rc-scrape-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px 0;
+  font-family: inherit;
+}
+
+.rc-scrape-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 12px;
+}
+
+.rc-scrape-item input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.rc-h-level {
+  font-size: 10px;
+  font-weight: 700;
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.rc-scrape-items p.rc-empty {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 12px;
+  padding: 8px;
+  margin: 0;
+}
+
+#rc-scrape-footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+#rc-scrape-footer select {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 5px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background: #fff;
+}
+
+#rc-scrape-footer button {
+  all: initial;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 4px;
+  background: #374151;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.4;
+}
+#rc-scrape-footer button:hover { background: #111827; }
+
+/* ── Close Button (shared across panels) ────────────────────── */
+#rc-grabber .rc-close-btn,
+#rc-scrape .rc-close-btn {
+  all: initial;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  font-family: inherit;
+}
+#rc-grabber .rc-close-btn:hover,
+#rc-scrape .rc-close-btn:hover { background: rgba(255,255,255,0.4); }
+
+/* ── Floater Toast ──────────────────────────────────────────── */
+#rc-floater {
+  all: initial;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  opacity: 0;
+  transition: all 250ms ease;
+  z-index: 2147483647;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+#rc-floater.rc-floater-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+#rc-floater.rc-floater-error {
+  background: #ef4444;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ================================================================
+   DARK MODE — Content Script Panels
+   Activates automatically when OS is in dark mode.
+   ================================================================ */
+@media (prefers-color-scheme: dark) {
+
+  /* ── Toolbar ─────────────────────────────────────────────── */
+  #rc-toolbar {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+  }
+  #rc-toolbar button {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+  }
+  #rc-toolbar button:hover {
+    background: #374151 !important;
+    color: #fff !important;
+    border-color: #374151 !important;
+  }
+  #rc-toolbar input[type="text"] {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+  #rc-toolbar input[type="text"]:focus {
+    border-color: #6b7280 !important;
+  }
+  #rc-toolbar select {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+  #rc-toolbar .rc-sep {
+    background: #475569 !important;
+  }
+  #rc-tb-preview {
+    background: #0f172a !important;
+    color: #94a3b8 !important;
+    border-color: #334155 !important;
+  }
+  #rc-tb-wc {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+  }
+
+  /* ── Link Grabber Panel ──────────────────────────────────── */
+  #rc-grabber {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+  }
+  #rc-grab-controls {
+    border-bottom-color: #334155 !important;
+  }
+  #rc-grab-filter {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+  #rc-grab-filter:focus {
+    border-color: #6b7280 !important;
+  }
+  #rc-grab-controls button {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+  }
+  #rc-grab-controls button:hover {
+    background: #374151 !important;
+    border-color: #374151 !important;
+  }
+  #rc-grab-controls select {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+  .rc-grab-item:hover {
+    background: #334155 !important;
+  }
+  .rc-grab-text {
+    color: #e2e8f0 !important;
+  }
+  .rc-grab-url {
+    color: #64748b !important;
+  }
+
+  /* ── Page Scraper Panel ──────────────────────────────────── */
+  #rc-scrape {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important;
+  }
+  #rc-scrape-body {
+    color: #f1f5f9 !important;
+  }
+  .rc-scrape-section h4 {
+    color: #94a3b8 !important;
+  }
+  .rc-scrape-item {
+    color: #e2e8f0 !important;
+  }
+  .rc-h-level {
+    background: #312e81 !important;
+    color: #a5b4fc !important;
+  }
+  #rc-scrape-footer {
+    border-top-color: #334155 !important;
+  }
+  #rc-scrape-footer select {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+    border-color: #475569 !important;
+  }
+
+  /* ── Floater Toast ───────────────────────────────────────── */
+  #rc-floater {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+  }
+}

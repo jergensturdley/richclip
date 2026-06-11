@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rich Clip — Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="rc-options">
+
+  <header id="rc-opt-header">
+    <h1>Rich Clip — Settings</h1>
+    <p class="rc-subtitle">Configure clipboard history, custom search engines, and saved links.</p>
+  </header>
+
+  <!-- ── Saved Links Archive ─────────────────────────────── -->
+  <section id="archive-section" class="rc-section">
+    <h2>Saved Links</h2>
+    <div class="rc-section-controls">
+      <input type="text" id="archive-filter" placeholder="Filter by tag, URL, or text…">
+      <button id="clear-archive" class="rc-btn-danger-sm">Clear All</button>
+    </div>
+    <ul id="link-list" class="rc-options-list"></ul>
+  </section>
+
+  <!-- ── Custom Search Engines ───────────────────────────── -->
+  <section id="search-section" class="rc-section">
+    <h2>Custom Search Engines</h2>
+    <p class="rc-desc">Add search engines that appear in your right-click context menu. Use <code>{query}</code> for the selected text and <code>{var}</code> for custom variables.</p>
+
+    <form id="search-form" class="rc-form">
+      <div class="rc-form-row">
+        <label>
+          Name
+          <input type="text" id="search-name" placeholder="e.g. Google Scholar" required>
+        </label>
+        <label>
+          URL Template
+          <input type="text" id="search-url" placeholder="https://scholar.google.com/scholar?q={query}" required>
+        </label>
+        <label>
+          Variables
+          <input type="text" id="search-vars" placeholder="query,cat,color">
+        </label>
+      </div>
+      <button type="submit" class="rc-btn-primary">Add / Update</button>
+    </form>
+
+    <h3>Current Engines</h3>
+    <ul id="search-list" class="rc-options-list"></ul>
+  </section>
+
+  <!-- ── Clipboard History Settings ──────────────────────── -->
+  <section id="clip-settings-section" class="rc-section">
+    <h2>Clipboard History</h2>
+    <div class="rc-settings-grid">
+      <label class="rc-setting-row">
+        <span>Max history items</span>
+        <input type="number" id="opt-max-history" min="10" max="500" value="200">
+      </label>
+      <label class="rc-setting-row">
+        <span>Auto-expire after (days, 0 = never)</span>
+        <input type="number" id="opt-expire-days" min="0" max="365" value="0">
+      </label>
+      <label class="rc-setting-row rc-toggle">
+        <input type="checkbox" id="opt-dedup" checked>
+        <span>Deduplicate consecutive copies</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Custom Templates ────────────────────────────────── -->
+  <section id="tpl-settings-section" class="rc-section">
+    <h2>Custom Templates</h2>
+    <p class="rc-desc">
+      Templates let you define reusable output formats. Available variables:
+      <code>{url}</code> <code>{title}</code> <code>{text}</code>
+      <code>{date}</code> <code>{selection}</code>
+    </p>
+    <ul id="tpl-list" class="rc-options-list"></ul>
+    <p class="rc-empty" id="tpl-empty">No custom templates yet. Add them from the popup's Templates tab.</p>
+  </section>
+
+  <!-- ── Export / Import ──────────────────────────────────── -->
+  <section id="data-section" class="rc-section">
+    <h2>Data Management</h2>
+    <div class="rc-btn-row">
+      <button id="btn-export" class="rc-btn-primary">Export All Data (JSON)</button>
+      <label class="rc-btn-primary rc-file-label">
+        Import Data (JSON)
+        <input type="file" id="btn-import" accept=".json" hidden>
+      </label>
+      <button id="btn-reset" class="rc-btn-danger">Reset All Data</button>
+    </div>
+  </section>
+
+  <script src="options.js"></script>
+</body>
+</html>

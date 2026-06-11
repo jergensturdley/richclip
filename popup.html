@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rich Clip</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="rc-popup">
+
+  <!-- ── Header ────────────────────────────────────────────── -->
+  <header id="rc-header">
+    <h1>Rich Clip</h1>
+    <div id="rc-header-actions">
+      <button id="btn-paste-all" class="rc-btn-accent" title="Paste staged items together (Ctrl+Shift+V)">
+        Paste All <span id="staged-count" class="rc-badge">0</span>
+      </button>
+      <button id="btn-options" class="rc-btn-ghost" title="Open Settings">&#9881;</button>
+    </div>
+  </header>
+
+  <!-- ── Tab Bar ───────────────────────────────────────────── -->
+  <nav id="rc-tabs">
+    <button class="rc-tab active" data-tab="quick">
+      Quick Copy <kbd>1</kbd>
+    </button>
+    <button class="rc-tab" data-tab="clipboard">
+      Clipboard <kbd>2</kbd>
+    </button>
+    <button class="rc-tab" data-tab="batch">
+      Batch <kbd>3</kbd>
+    </button>
+    <button class="rc-tab" data-tab="templates">
+      Templates <kbd>4</kbd>
+    </button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TAB 1 — QUICK COPY
+       ═══════════════════════════════════════════════════════ -->
+  <section id="tab-quick" class="rc-tab-content active">
+    <div id="page-info">
+      <span id="page-title"></span>
+      <span id="page-url"></span>
+    </div>
+
+    <div id="format-cards" class="rc-grid"></div>
+
+    <h3 class="rc-section-title">Quick Actions <kbd>Q</kbd></h3>
+    <div id="quick-actions"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TAB 2 — CLIPBOARD HISTORY
+       ═══════════════════════════════════════════════════════ -->
+  <section id="tab-clipboard" class="rc-tab-content">
+    <div id="clip-controls">
+      <input type="text" id="clip-search" placeholder="Search history… (/)">
+      <select id="clip-filter">
+        <option value="all">All</option>
+        <option value="link">Links</option>
+        <option value="text">Text</option>
+      </select>
+      <select id="clip-format-filter">
+        <option value="all">All Formats</option>
+        <option value="markdown">Markdown</option>
+        <option value="html">HTML</option>
+        <option value="bbcode">BBCode</option>
+        <option value="richtext">Rich Text</option>
+        <option value="plain">Plain</option>
+        <option value="citation">Citation</option>
+        <option value="custom">Custom</option>
+      </select>
+      <button id="btn-clear-history" class="rc-btn-danger-sm" title="Clear history">Clear</button>
+    </div>
+
+    <div id="staged-section">
+      <h3 class="rc-section-title">
+        Staged Items <span id="staged-count-detail" class="rc-badge">0</span>
+        <button id="btn-clear-stage" class="rc-btn-link">clear</button>
+      </h3>
+      <div id="staged-list" class="rc-item-list"></div>
+      <div id="stage-actions">
+        <select id="stage-separator">
+          <option value="\n">Newline</option>
+          <option value=", ">Comma</option>
+          <option value="  ">Double Space</option>
+          <option value="\n\n">Double Newline</option>
+          <option value="|">Pipe</option>
+        </select>
+        <button id="btn-copy-stage" class="rc-btn-accent">Copy All Staged</button>
+      </div>
+    </div>
+
+    <h3 class="rc-section-title">History</h3>
+    <div id="clip-history" class="rc-item-list"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TAB 3 — BATCH TOOLS
+       ═══════════════════════════════════════════════════════ -->
+  <section id="tab-batch" class="rc-tab-content">
+    <div class="rc-tool-group">
+      <h3>Grab Page Links <kbd>G</kbd></h3>
+      <p class="rc-desc">Collect all links on the current page, select, and copy in any format.</p>
+      <div id="batch-link-summary"></div>
+      <button id="btn-grab-links" class="rc-btn-primary">Grab Links</button>
+    </div>
+
+    <div class="rc-tool-group">
+      <h3>Convert Page Links <kbd>L</kbd></h3>
+      <p class="rc-desc">Convert every link on the page to a chosen format and copy as a list.</p>
+      <select id="convert-format">
+        <option value="markdown">Markdown</option>
+        <option value="html">HTML</option>
+        <option value="bbcode">BBCode</option>
+        <option value="plain">Plain</option>
+      </select>
+      <button id="btn-convert-links" class="rc-btn-primary">Convert &amp; Copy</button>
+    </div>
+
+    <div class="rc-tool-group">
+      <h3>Scrape Page Content <kbd>S</kbd></h3>
+      <p class="rc-desc">Extract headings, tables, and lists from the page in your chosen format.</p>
+      <select id="scrape-format">
+        <option value="markdown">Markdown</option>
+        <option value="html">HTML</option>
+        <option value="plain">Plain</option>
+      </select>
+      <button id="btn-scrape-page" class="rc-btn-primary">Open Scraper</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TAB 4 — TEMPLATES & SETTINGS
+       ═══════════════════════════════════════════════════════ -->
+  <section id="tab-templates" class="rc-tab-content">
+    <div class="rc-tool-group">
+      <h3>Custom Templates</h3>
+      <p class="rc-desc">
+        Create output templates using variables:
+        <code>{url}</code> <code>{title}</code> <code>{text}</code>
+        <code>{date}</code> <code>{selection}</code>
+      </p>
+      <form id="template-form">
+        <input type="text" id="tpl-name" placeholder="Template name" required>
+        <input type="text" id="tpl-body" placeholder="e.g. [{title}]({url}) — {date}" required>
+        <button type="submit" class="rc-btn-primary">Save Template</button>
+      </form>
+    </div>
+
+    <h3 class="rc-section-title">Saved Templates</h3>
+    <div id="template-list" class="rc-item-list"></div>
+
+    <div class="rc-tool-group" id="settings-section">
+      <h3>Settings</h3>
+
+      <p class="rc-settings-group-label">Appearance</p>
+      <label class="rc-toggle">
+        <span>Theme</span>
+        <select id="opt-dark">
+          <option value="auto">Auto (follow OS)</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </label>
+
+      <p class="rc-settings-group-label">Selection Toolbar</p>
+      <label class="rc-toggle">
+        <span>Toolbar style</span>
+        <select id="opt-selection-toolbar">
+          <option value="full">Full (URL, format, preview)</option>
+          <option value="compact">Compact (quick-copy pill)</option>
+          <option value="off">Off (disabled)</option>
+        </select>
+      </label>
+      <label class="rc-toggle">
+        <span>Default format</span>
+        <select id="opt-default-format">
+          <option value="markdown">Markdown</option>
+          <option value="html">HTML</option>
+          <option value="bbcode">BBCode</option>
+          <option value="richtext">Rich Text</option>
+          <option value="plain">Plain text</option>
+        </select>
+      </label>
+
+      <p class="rc-settings-group-label">Behaviour</p>
+      <label class="rc-toggle">
+        <input type="checkbox" id="opt-auto-stage" checked> Auto-stage on copy from toolbar
+      </label>
+      <label class="rc-toggle">
+        <input type="checkbox" id="opt-capture-copy" checked> Capture all page copy events
+      </label>
+      <label class="rc-toggle">
+        <input type="checkbox" id="opt-show-preview" checked> Show format preview in toolbar
+      </label>
+      <label class="rc-toggle">
+        <input type="checkbox" id="opt-auto-close"> Auto-close popup after copying
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Status Bar ────────────────────────────────────────── -->
+  <footer id="rc-status">
+    <span id="status-text">Ready</span>
+    <span id="kbd-hint"><kbd>?</kbd> shortcuts</span>
+  </footer>
+
+  <!-- ── Toast ─────────────────────────────────────────────── -->
+  <div id="rc-toast"></div>
+
+  <!-- ── Keyboard Shortcuts Modal ──────────────────────────── -->
+  <div id="rc-shortcuts-modal" class="rc-modal hidden">
+    <div class="rc-modal-backdrop"></div>
+    <div class="rc-modal-body">
+      <h2>Keyboard Shortcuts</h2>
+      <div class="rc-kbd-grid">
+        <div class="rc-kbd-section">
+          <h4>Global</h4>
+          <div class="rc-kbd-row"><kbd>1</kbd><span>Quick Copy tab</span></div>
+          <div class="rc-kbd-row"><kbd>2</kbd><span>Clipboard tab</span></div>
+          <div class="rc-kbd-row"><kbd>3</kbd><span>Batch tab</span></div>
+          <div class="rc-kbd-row"><kbd>4</kbd><span>Templates tab</span></div>
+          <div class="rc-kbd-row"><kbd>/</kbd><span>Focus search</span></div>
+          <div class="rc-kbd-row"><kbd>?</kbd><span>Show shortcuts</span></div>
+          <div class="rc-kbd-row"><kbd>Esc</kbd><span>Close / Clear</span></div>
+        </div>
+        <div class="rc-kbd-section">
+          <h4>Quick Copy</h4>
+          <div class="rc-kbd-row"><kbd>M</kbd><span>Copy Markdown</span></div>
+          <div class="rc-kbd-row"><kbd>H</kbd><span>Copy HTML</span></div>
+          <div class="rc-kbd-row"><kbd>B</kbd><span>Copy BBCode</span></div>
+          <div class="rc-kbd-row"><kbd>R</kbd><span>Copy Rich Text</span></div>
+          <div class="rc-kbd-row"><kbd>P</kbd><span>Copy Plain</span></div>
+          <div class="rc-kbd-row"><kbd>C</kbd><span>Copy Citation</span></div>
+          <div class="rc-kbd-row"><kbd>Shift+M</kbd><span>Stage Markdown</span></div>
+          <div class="rc-kbd-row"><kbd>Shift+H</kbd><span>Stage HTML</span></div>
+        </div>
+        <div class="rc-kbd-section">
+          <h4>Clipboard</h4>
+          <div class="rc-kbd-row"><kbd>J / K</kbd><span>Next / Prev item</span></div>
+          <div class="rc-kbd-row"><kbd>Enter</kbd><span>Copy item</span></div>
+          <div class="rc-kbd-row"><kbd>S</kbd><span>Stage item</span></div>
+          <div class="rc-kbd-row"><kbd>X</kbd><span>Delete item</span></div>
+          <div class="rc-kbd-row"><kbd>Ctrl+Shift+V</kbd><span>Paste All staged</span></div>
+        </div>
+        <div class="rc-kbd-section">
+          <h4>Batch</h4>
+          <div class="rc-kbd-row"><kbd>G</kbd><span>Grab page links</span></div>
+          <div class="rc-kbd-row"><kbd>L</kbd><span>Convert page links</span></div>
+          <div class="rc-kbd-row"><kbd>S</kbd><span>Scrape page</span></div>
+        </div>
+      </div>
+      <button id="close-shortcuts" class="rc-btn-primary">Close</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
