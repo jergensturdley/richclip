@@ -175,9 +175,9 @@ select:focus:not(:focus-visible) {
 }
 
 #rc-header h1 {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--text);
   white-space: nowrap;
   overflow: hidden;
@@ -199,7 +199,7 @@ select:focus:not(:focus-visible) {
   background: var(--accent);
   color: #fff;
   border: none;
-  padding: 7px 10px;
+  padding: 6px 10px;
   border-radius: var(--radius-pill);
   font-size: 12px;
   font-weight: 600;
@@ -212,22 +212,23 @@ select:focus:not(:focus-visible) {
   text-overflow: ellipsis;
   flex-shrink: 1;
   min-width: 0;
+  letter-spacing: -0.01em;
 }
 .rc-btn-accent:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
-.rc-btn-accent:active { transform: scale(0.98); }
+.rc-btn-accent:active { transform: scale(0.97); }
 
 .rc-btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   background: transparent;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -235,12 +236,12 @@ select:focus:not(:focus-visible) {
 }
 .rc-btn-ghost:hover {
   background: var(--bg-subtle);
-  color: var(--text);
+  color: var(--text-secondary);
   border-color: var(--border);
 }
 .rc-btn-ghost svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 .rc-badge {
@@ -248,7 +249,7 @@ select:focus:not(:focus-visible) {
   align-items: center;
   justify-content: center;
   background: rgba(255, 255, 255, 0.22);
-  padding: 0 6px;
+  padding: 0 5px;
   border-radius: var(--radius-pill);
   font-size: 10px;
   font-weight: 700;
@@ -256,13 +257,14 @@ select:focus:not(:focus-visible) {
   height: 18px;
   text-align: center;
   font-family: var(--mono);
+  letter-spacing: -0.02em;
 }
 
 /* ── Tabs (segmented) ───────────────────────────────────────── */
 #rc-tabs {
   display: flex;
-  gap: 4px;
-  padding: 6px 12px;
+  gap: 2px;
+  padding: 5px 10px;
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
@@ -271,25 +273,26 @@ select:focus:not(:focus-visible) {
 .rc-tab {
   flex: 1;
   min-width: 0;
-  padding: 7px 4px;
+  padding: 6px 4px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 500;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   cursor: pointer;
   transition: all var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 5px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 .rc-tab:hover {
-  color: var(--text);
+  color: var(--text-secondary);
   background: var(--bg-elevated);
 }
 .rc-tab.active {
@@ -300,8 +303,9 @@ select:focus:not(:focus-visible) {
   box-shadow: var(--shadow-xs);
 }
 .rc-tab kbd {
-  opacity: 0.55;
+  opacity: 0.45;
   font-size: 9px;
+  font-weight: 500;
 }
 
 /* ── Tab panels ─────────────────────────────────────────────── */
@@ -322,15 +326,16 @@ select:focus:not(:focus-visible) {
   align-items: center;
   height: var(--status-h);
   padding: 0 16px;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--text-muted);
   background: var(--bg-subtle);
   border-top: 1px solid var(--border);
   flex-shrink: 0;
   font-family: var(--mono);
+  letter-spacing: -0.01em;
 }
 
-#kbd-hint { opacity: 0.75; }
+#kbd-hint { opacity: 0.65; }
 
 /* ── Toast ──────────────────────────────────────────────────── */
 #rc-toast {
@@ -340,13 +345,14 @@ select:focus:not(:focus-visible) {
   transform: translateX(-50%) translateY(12px);
   background: var(--text);
   color: var(--bg-elevated);
-  padding: 8px 16px;
+  padding: 7px 16px;
   border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+  transition: opacity 200ms var(--ease), transform 200ms var(--ease);
   z-index: 999;
   white-space: nowrap;
   box-shadow: var(--shadow-md);
@@ -369,8 +375,8 @@ select:focus:not(:focus-visible) {
 #page-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 14px;
+  gap: 3px;
+  margin-bottom: 12px;
   padding: 10px 12px;
   background: var(--bg-elevated);
   border-radius: var(--radius);
@@ -379,26 +385,28 @@ select:focus:not(:focus-visible) {
 }
 #page-title {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12.5px;
   letter-spacing: -0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--text);
 }
 #page-url {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
   font-family: var(--mono);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .rc-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 14px;
   min-width: 0;
   width: 100%;
   max-width: 100%;
@@ -407,25 +415,36 @@ select:focus:not(:focus-visible) {
 .rc-format-card {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 9px;
+  padding: 10px 10px 9px;
   cursor: pointer;
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
-  border-left: 3px solid var(--fc, var(--accent));
   background: var(--bg-elevated);
   min-width: 0;
   overflow: hidden;
+  position: relative;
+}
+.rc-format-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--transition);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--fc, var(--accent)) 6%, transparent), transparent 60%);
+  pointer-events: none;
 }
 .rc-format-card:hover {
-  border-color: var(--border-strong);
-  box-shadow: var(--shadow-sm);
+  border-color: color-mix(in srgb, var(--fc, var(--accent)) 30%, var(--border-strong));
+  box-shadow: var(--shadow-sm), 0 0 0 1px color-mix(in srgb, var(--fc, var(--accent)) 8%, transparent);
   transform: translateY(-1px);
 }
-.rc-format-card:active { transform: scale(0.99); }
+.rc-format-card:hover::before { opacity: 1; }
+.rc-format-card:active { transform: scale(0.985); }
 
 .rc-format-card.rc-copied {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-ring), var(--shadow-sm);
-  transform: scale(0.99);
+  border-color: var(--fc, var(--accent));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--fc, var(--accent)) 20%, transparent), var(--shadow-sm);
+  transform: scale(0.985);
 }
 
 .fc-head {
@@ -443,13 +462,14 @@ select:focus:not(:focus-visible) {
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: var(--radius-sm);
+  border-radius: 7px;
   color: #fff;
   font-size: 9px;
   font-weight: 800;
   font-family: var(--mono);
   flex-shrink: 0;
   letter-spacing: -0.03em;
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--fc, var(--accent)) 30%, transparent);
 }
 
 .fc-name {
@@ -502,14 +522,15 @@ select:focus:not(:focus-visible) {
 }
 
 .rc-section-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-muted);
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 #quick-actions {
@@ -520,7 +541,7 @@ select:focus:not(:focus-visible) {
 }
 
 .rc-action-btn {
-  padding: 6px 9px;
+  padding: 5px 10px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border);
   background: var(--bg-elevated);
@@ -531,19 +552,22 @@ select:focus:not(:focus-visible) {
   transition: all var(--transition);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  letter-spacing: -0.01em;
 }
 .rc-action-btn:hover {
   background: var(--bg-subtle);
   color: var(--text);
   border-color: var(--border-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xs);
 }
-.rc-action-btn:active { transform: scale(0.98); }
+.rc-action-btn:active { transform: scale(0.97); }
 
 /* ================================================================
    CLIPBOARD
@@ -560,7 +584,7 @@ select:focus:not(:focus-visible) {
 #clip-search {
   flex: 1;
   min-width: 140px;
-  padding: 8px 11px;
+  padding: 7px 11px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 12px;
@@ -592,7 +616,7 @@ select:focus:not(:focus-visible) {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   box-shadow: var(--shadow-xs);
 }
 
@@ -616,12 +640,17 @@ select:focus:not(:focus-visible) {
 }
 
 #stage-actions select {
-  padding: 6px 9px;
+  padding: 5px 8px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 11px;
   background: var(--bg-elevated);
   color: var(--text);
+  transition: border-color var(--transition);
+}
+#stage-actions select:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .rc-item-list {
@@ -635,7 +664,7 @@ select:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 8px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   transition: background var(--transition);
 }
@@ -649,10 +678,11 @@ select:focus:not(:focus-visible) {
 
 .rc-clip-dot,
 .rc-staged-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .rc-clip-body,
@@ -667,6 +697,7 @@ select:focus:not(:focus-visible) {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .rc-clip-meta {
@@ -682,18 +713,21 @@ select:focus:not(:focus-visible) {
   padding: 1px 7px;
   border-radius: var(--radius-pill);
   font-family: var(--mono);
+  letter-spacing: -0.01em;
 }
 
 .rc-time {
   font-size: 10px;
   color: var(--text-muted);
   font-family: var(--mono);
+  letter-spacing: -0.01em;
 }
 
 .rc-pinned {
   font-size: 10px;
   color: var(--accent);
   font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .rc-clip-actions,
@@ -728,6 +762,7 @@ select:focus:not(:focus-visible) {
   font-size: 11px;
   font-weight: 600;
   color: var(--accent);
+  letter-spacing: -0.01em;
 }
 
 /* ================================================================
@@ -738,8 +773,8 @@ select:focus:not(:focus-visible) {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
-  margin-bottom: 10px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
   box-shadow: var(--shadow-xs);
 }
 
@@ -750,14 +785,14 @@ select:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: 6px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 .rc-desc {
   font-size: 11.5px;
   color: var(--text-secondary);
   margin-bottom: 10px;
-  line-height: 1.45;
+  line-height: 1.5;
   max-width: 52ch;
 }
 
@@ -791,6 +826,7 @@ select:focus:not(:focus-visible) {
   color: var(--accent);
   font-weight: 600;
   font-family: var(--mono);
+  letter-spacing: -0.01em;
 }
 
 /* ================================================================
@@ -800,7 +836,7 @@ select:focus:not(:focus-visible) {
 #template-form {
   display: flex;
   gap: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   flex-wrap: wrap;
   min-width: 0;
 }
@@ -812,12 +848,13 @@ select:focus:not(:focus-visible) {
 #template-form input {
   flex: 1;
   min-width: 120px;
-  padding: 8px 11px;
+  padding: 7px 11px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 12px;
   background: var(--bg-elevated);
   color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 #template-form input:focus {
   outline: none;
@@ -827,23 +864,25 @@ select:focus:not(:focus-visible) {
 
 .rc-tpl-item code {
   display: block;
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
   font-family: var(--mono);
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 #settings-section { margin-top: 16px; }
 
 .rc-settings-group-label {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   color: var(--text-muted);
   margin: 12px 0 6px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 #settings-section .rc-settings-group-label:first-of-type { margin-top: 6px; }
 
@@ -851,11 +890,13 @@ select:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   padding: 6px 0;
   color: var(--text);
+  border-bottom: 1px solid var(--border);
 }
+.rc-toggle:last-child { border-bottom: none; }
 
 .rc-toggle select {
   margin-left: auto;
@@ -878,7 +919,7 @@ select:focus:not(:focus-visible) {
    ================================================================ */
 
 .rc-btn-primary {
-  padding: 8px 14px;
+  padding: 7px 14px;
   background: var(--accent);
   color: #fff;
   border: none;
@@ -886,19 +927,23 @@ select:focus:not(:focus-visible) {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition), transform var(--transition);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
   box-shadow: var(--shadow-xs);
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 0;
+  letter-spacing: -0.01em;
 }
-.rc-btn-primary:hover { background: var(--accent-hover); }
-.rc-btn-primary:active { transform: scale(0.98); }
+.rc-btn-primary:hover {
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-sm);
+}
+.rc-btn-primary:active { transform: scale(0.97); }
 
 .rc-btn-danger {
-  padding: 8px 16px;
+  padding: 7px 16px;
   background: var(--danger);
   color: #fff;
   border: none;
@@ -906,12 +951,14 @@ select:focus:not(:focus-visible) {
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition);
+  transition: background var(--transition), transform var(--transition);
+  letter-spacing: -0.01em;
 }
 .rc-btn-danger:hover { background: var(--danger-hover); }
+.rc-btn-danger:active { transform: scale(0.97); }
 
 .rc-btn-danger-sm {
-  padding: 6px 10px;
+  padding: 5px 10px;
   background: transparent;
   color: var(--danger);
   border: 1px solid var(--danger);
@@ -922,6 +969,7 @@ select:focus:not(:focus-visible) {
   transition: all var(--transition);
   white-space: nowrap;
   flex-shrink: 0;
+  letter-spacing: -0.01em;
 }
 .rc-btn-danger-sm:hover {
   background: var(--danger);
@@ -937,8 +985,9 @@ select:focus:not(:focus-visible) {
   cursor: pointer;
   text-decoration: none;
   padding: 0;
+  transition: opacity var(--transition);
 }
-.rc-btn-link:hover { text-decoration: underline; }
+.rc-btn-link:hover { text-decoration: underline; opacity: 0.8; }
 
 kbd {
   display: inline-block;
@@ -950,6 +999,7 @@ kbd {
   border-radius: 4px;
   color: var(--text-muted);
   line-height: 1.45;
+  letter-spacing: -0.02em;
 }
 
 code {
@@ -959,28 +1009,31 @@ code {
   padding: 1px 5px;
   border-radius: 4px;
   color: var(--text-secondary);
+  letter-spacing: -0.01em;
 }
 
 .rc-empty {
   text-align: center;
   color: var(--text-muted);
   font-size: 12px;
-  padding: 20px 12px;
+  padding: 24px 16px;
   line-height: 1.5;
 }
 
 .rc-empty-title {
   display: block;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--text-secondary);
-  margin-bottom: 4px;
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
 }
 
 .rc-empty-hint {
   display: block;
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--text-muted);
+  line-height: 1.5;
 }
 
 /* ── Loading skeleton ───────────────────────────────────────── */
@@ -1018,7 +1071,7 @@ code {
 
 .rc-skeleton-page {
   padding: 10px 12px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: flex;
@@ -1026,8 +1079,8 @@ code {
   gap: 8px;
 }
 
-.rc-skeleton-title { height: 14px; width: 72%; }
-.rc-skeleton-url { height: 11px; width: 92%; }
+.rc-skeleton-title { height: 13px; width: 72%; }
+.rc-skeleton-url { height: 10px; width: 92%; }
 
 .rc-skeleton-grid .rc-skeleton-card {
   height: 62px;
@@ -1042,7 +1095,7 @@ code {
   justify-content: space-between;
   gap: 14px;
   margin-top: 16px;
-  padding: 14px;
+  padding: 14px 16px;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -1098,7 +1151,7 @@ code {
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 22px;
+  padding: 24px;
   max-width: 540px;
   width: 92%;
   max-height: 82vh;
@@ -1107,32 +1160,33 @@ code {
 }
 
 .rc-modal-body h2 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
 }
 
 .rc-kbd-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 18px;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .rc-kbd-section h4 {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 8px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .rc-kbd-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 0;
+  padding: 3px 0;
   font-size: 12px;
 }
 .rc-kbd-row kbd { min-width: 30px; text-align: center; }
@@ -1145,14 +1199,14 @@ code {
 #rc-options {
   max-width: 760px;
   margin: 0 auto;
-  padding: 32px 28px 48px;
+  padding: 36px 28px 56px;
   font-size: 14px;
   background: var(--bg);
   min-height: 100vh;
 }
 
 #rc-opt-header {
-  margin-bottom: 36px;
+  margin-bottom: 40px;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--border);
 }
@@ -1161,7 +1215,7 @@ code {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .rc-opt-brand img {
@@ -1171,30 +1225,30 @@ code {
 }
 
 #rc-opt-header h1 {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   margin: 0;
 }
 
 .rc-subtitle {
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: 13.5px;
   line-height: 1.5;
   max-width: 52ch;
 }
 
 .rc-section {
   margin-bottom: 32px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
   border-bottom: 1px solid var(--border);
 }
 .rc-section:last-child { border-bottom: none; }
 
 .rc-section h2 {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   margin-bottom: 12px;
 }
 
@@ -1206,12 +1260,13 @@ code {
 
 .rc-section-controls input {
   flex: 1;
-  padding: 9px 12px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--bg-elevated);
   color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 .rc-section-controls input:focus {
   outline: none;
@@ -1233,6 +1288,7 @@ code {
   border-bottom: 1px solid var(--border);
   transition: background var(--transition);
 }
+.rc-opt-item:last-child { border-bottom: none; }
 .rc-opt-item:hover { background: var(--bg-subtle); }
 
 .rc-opt-info {
@@ -1242,27 +1298,30 @@ code {
   flex-direction: column;
   gap: 2px;
 }
-.rc-opt-info strong { font-size: 13px; }
+.rc-opt-info strong { font-size: 13px; letter-spacing: -0.01em; }
 .rc-opt-info a {
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--accent);
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: var(--mono);
+  letter-spacing: -0.01em;
 }
 .rc-opt-info a:hover { text-decoration: underline; }
 
 .rc-tags {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
+  letter-spacing: -0.01em;
 }
 
 .rc-vars {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-secondary);
   font-style: italic;
+  letter-spacing: -0.01em;
 }
 
 .rc-opt-actions {
@@ -1276,6 +1335,7 @@ code {
   padding: 0 10px !important;
   font-size: 11px !important;
   color: var(--accent) !important;
+  letter-spacing: -0.01em !important;
 }
 
 .rc-form { margin-bottom: 16px; }
@@ -1297,12 +1357,13 @@ code {
   color: var(--text-secondary);
 }
 .rc-form-row input {
-  padding: 9px 12px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--bg-elevated);
   color: var(--text);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 .rc-form-row input:focus {
   outline: none;
@@ -1313,7 +1374,7 @@ code {
 .rc-settings-grid {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .rc-setting-row {
@@ -1322,19 +1383,22 @@ code {
   justify-content: space-between;
   gap: 14px;
   font-size: 13px;
-  padding: 4px 0;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
 }
+.rc-setting-row:last-child { border-bottom: none; }
 .rc-setting-row input[type="number"],
 .rc-setting-row select {
   width: auto;
   min-width: 160px;
-  padding: 7px 10px;
+  padding: 6px 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  font-size: 12.5px;
   background: var(--bg-elevated);
   color: var(--text);
   cursor: pointer;
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .rc-setting-row input[type="number"] {
@@ -1372,7 +1436,7 @@ code {
   background: var(--bg-elevated, #fff);
   border: 1px solid var(--border, #e4e4e7);
   border-radius: var(--radius, 10px);
-  padding: 8px 10px;
+  padding: 7px 9px;
   box-shadow: var(--shadow-md);
   display: none;
   font-family: var(--font);
@@ -1399,11 +1463,14 @@ code {
   font-family: inherit;
   transition: all var(--transition);
   line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 #rc-toolbar button:hover {
   background: var(--bg-muted);
   border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
+#rc-toolbar button:active { transform: scale(0.97); }
 
 #rc-toolbar input[type="text"],
 #rc-toolbar select {
@@ -1475,9 +1542,9 @@ code {
 
 #rc-grab-header h3,
 #rc-scrape-header h3 {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 
 #rc-grab-controls {
@@ -1549,6 +1616,7 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+  letter-spacing: -0.01em;
 }
 
 .rc-grab-url {
@@ -1559,6 +1627,7 @@ code {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 #rc-scrape-body {
@@ -1571,11 +1640,12 @@ code {
 .rc-scrape-section { margin-bottom: 12px; }
 
 .rc-scrape-section h4 {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 6px;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .rc-scrape-item {
@@ -1584,6 +1654,7 @@ code {
   gap: 8px;
   padding: 4px 0;
   font-size: 12px;
+  letter-spacing: -0.01em;
 }
 
 .rc-h-level {
@@ -1594,6 +1665,7 @@ code {
   padding: 1px 6px;
   border-radius: 4px;
   font-family: var(--mono);
+  letter-spacing: -0.02em;
 }
 
 #rc-scrape-footer {
@@ -1613,23 +1685,25 @@ code {
 #rc-scrape-footer button:hover { background: var(--accent-hover); }
 
 .rc-close-btn {
-  width: 28px !important;
-  height: 28px !important;
+  width: 26px !important;
+  height: 26px !important;
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-pill) !important;
   background: var(--bg-elevated) !important;
-  color: var(--text-secondary) !important;
-  font-size: 16px !important;
+  color: var(--text-muted) !important;
+  font-size: 15px !important;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 !important;
   line-height: 1 !important;
+  transition: all var(--transition) !important;
 }
 .rc-close-btn:hover {
   background: var(--bg-subtle) !important;
   color: var(--text) !important;
+  border-color: var(--border-strong) !important;
 }
 
 #rc-floater {
@@ -1639,13 +1713,14 @@ code {
   transform: translateX(-50%) translateY(16px);
   background: var(--text);
   color: var(--bg-elevated);
-  padding: 9px 20px;
+  padding: 8px 20px;
   border-radius: var(--radius-pill);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   font-family: var(--font);
+  letter-spacing: -0.01em;
   opacity: 0;
-  transition: opacity 220ms var(--ease), transform 220ms var(--ease);
+  transition: opacity 200ms var(--ease), transform 200ms var(--ease);
   z-index: 2147483647;
   pointer-events: none;
   box-shadow: var(--shadow-md);
@@ -1669,3 +1744,9 @@ code {
   border-radius: var(--radius-pill);
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}

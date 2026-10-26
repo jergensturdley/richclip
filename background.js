@@ -74,6 +74,14 @@ function rebuildContextMenu() {
         id: 'rc-page-stage', parentId: 'rc-page',
         title: 'Stage Page URL', contexts: ['page', 'frame']
       });
+      chrome.contextMenus.create({
+        id: 'rc-page-save', parentId: 'rc-page',
+        title: 'Save Page to Archive', contexts: ['page', 'frame']
+      });
+      chrome.contextMenus.create({
+        id: 'rc-page-copy-title', parentId: 'rc-page',
+        title: 'Copy Page Title', contexts: ['page', 'frame']
+      });
 
       chrome.contextMenus.create({ id: 'rc-sep1', parentId: 'rc-root', type: 'separator' });
 
@@ -93,6 +101,10 @@ function rebuildContextMenu() {
         id: 'rc-sel-stage', parentId: 'rc-sel',
         title: 'Stage Selection', contexts: ['selection']
       });
+      chrome.contextMenus.create({
+        id: 'rc-sel-save', parentId: 'rc-sel',
+        title: 'Save Selection to Archive', contexts: ['selection']
+      });
 
       chrome.contextMenus.create({ id: 'rc-sep2', parentId: 'rc-root', type: 'separator' });
 
@@ -111,6 +123,18 @@ function rebuildContextMenu() {
       chrome.contextMenus.create({
         id: 'rc-link-stage', parentId: 'rc-link',
         title: 'Stage Link', contexts: ['link']
+      });
+      chrome.contextMenus.create({
+        id: 'rc-link-save', parentId: 'rc-link',
+        title: 'Save Link to Archive', contexts: ['link']
+      });
+      chrome.contextMenus.create({
+        id: 'rc-link-copy-text', parentId: 'rc-link',
+        title: 'Copy Link Text', contexts: ['link']
+      });
+      chrome.contextMenus.create({
+        id: 'rc-link-open', parentId: 'rc-link',
+        title: 'Open Link in New Tab', contexts: ['link']
       });
 
       chrome.contextMenus.create({ id: 'rc-sep3', parentId: 'rc-root', type: 'separator' });
@@ -208,6 +232,26 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     return;
   }
 
+  if (id === 'rc-page-save') {
+    chrome.storage.local.get(['savedLinks'], data => {
+      const list = data.savedLinks || [];
+      list.push({ url: pageUrl, text: tab?.title || pageUrl, tags: '', timestamp: Date.now() });
+      chrome.storage.local.set({ savedLinks: list });
+    });
+    writeClipboardViaTab(tab, pageUrl);
+    return;
+  }
+
+  if (id === 'rc-page-copy-title') {
+    const title = tab?.title || '';
+    addClipboardItem({
+      text: title, url: pageUrl, title: title,
+      format: 'plain', source: 'context-menu', type: 'text'
+    });
+    writeClipboardViaTab(tab, title);
+    return;
+  }
+
   // ── Copy Selection ──
   if (id.startsWith('rc-sel-') && id !== 'rc-sel-stage') {
     const idx = parseInt(id.split('-')[2], 10);
@@ -227,6 +271,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       text: selection, url: pageUrl, title: selection,
       format: 'plain', source: 'context-menu-stage', type: 'text'
     });
+    return;
+  }
+
+  if (id === 'rc-sel-save') {
+    chrome.storage.local.get(['savedLinks'], data => {
+      const list = data.savedLinks || [];
+      list.push({ url: pageUrl, text: selection, tags: '', timestamp: Date.now() });
+      chrome.storage.local.set({ savedLinks: list });
+    });
+    writeClipboardViaTab(tab, selection);
     return;
   }
 
@@ -250,6 +304,31 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       text: output, url: linkUrl, title: selection || linkUrl,
       format: 'markdown', source: 'context-menu-stage', type: 'link'
     });
+    return;
+  }
+
+  if (id === 'rc-link-save') {
+    chrome.storage.local.get(['savedLinks'], data => {
+      const list = data.savedLinks || [];
+      list.push({ url: linkUrl, text: selection || linkUrl, tags: '', timestamp: Date.now() });
+      chrome.storage.local.set({ savedLinks: list });
+    });
+    writeClipboardViaTab(tab, linkUrl);
+    return;
+  }
+
+  if (id === 'rc-link-copy-text') {
+    const linkText = selection || linkUrl;
+    addClipboardItem({
+      text: linkText, url: linkUrl, title: linkText,
+      format: 'plain', source: 'context-menu', type: 'text'
+    });
+    writeClipboardViaTab(tab, linkText);
+    return;
+  }
+
+  if (id === 'rc-link-open') {
+    chrome.tabs.create({ url: linkUrl, active: true });
     return;
   }
 

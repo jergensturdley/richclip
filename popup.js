@@ -128,11 +128,11 @@
           state.history   = data[CLIPBOARD_KEY] || [];
           state.templates = data[TEMPLATES_KEY] || [];
           state.searches  = data[SEARCHES_KEY]  || [];
-          state.settings  = data[SETTINGS_KEY]  || {
-            darkMode: false, theme: 'auto', autoStage: true,
-            captureCopy: true, showPreview: true,
-            selectionToolbar: 'full', defaultFormat: 'markdown', autoClose: false
-          };
+      state.settings  = data[SETTINGS_KEY]  || {
+        darkMode: false, theme: 'auto', autoStage: true,
+        captureCopy: true, showPreview: true,
+        selectionToolbar: 'off', defaultFormat: 'markdown', autoClose: false
+      };
           resolve();
         }
       );
